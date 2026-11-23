@@ -23,6 +23,14 @@ Retrieved 2026-11-23. Internal document.
 - Section "What Our Customers Say" / "Apa Kata Pelanggan Kami" sits after "Why Choose Final Choice?" and before the process and final-enquiry sections. Desktop shows 3 cards with arrows; mobile shows one swipeable card. Review text is shown in its original language and never translated or edited.
 - Layout tests use clearly marked SAMPLE data (`tests/fixtures/reviews.sample.json`) through `node build.mjs --reviews-fixture`. The release build refuses that flag.
 
-## Update 2026-11-23: public rating panel (no review text)
-At management's request the section is live in a **rating-only** form: Google wordmark, 4.8 rating, 109 reviews, a note that this is a snapshot taken on 23 November 2026 (not live-updating), and a "Read Our Google Reviews" button linking to the Google listing. No review text or reviewer names are shown. When approved reviews are later added to `content/reviews.json`, the section switches automatically to the review-card carousel (and the button reads "Read More Reviews on Google"). The sample cards remain preview-only (`--reviews-fixture`, refused by the release build).
-To refresh the snapshot: re-check the Google listing, then update `rating.value`, `rating.count` and `rating.retrievedOn` in `content/reviews.json`.
+## Update 2026-11-23: rating-only panel removed; cards-only design
+Management rejected the rating-only panel and asked for real review cards under a compact header (Google, 4.8, 109 Google reviews, snapshot 23 November 2026), a "See More Reviews on Google" button ("Lihat Lagi Ulasan di Google") and no rating-only substitute. The code now has only two states: review cards (when approved reviews exist) or hidden. Desktop shows 3 cards per row (grid), mobile a swipeable single card. The sample cards (`--reviews-fixture`) are preview-only.
+
+**Current live state: section hidden**, because no review text has been supplied with authorised access.
+
+### Exactly what is needed to show real reviews
+Any ONE of these (all keep us within Google's terms):
+1. **Owner-supplied text (fastest):** an APFC Business Profile manager signs in at business.google.com, opens Reviews, chooses 4-6 positive reviews and sends their exact text with reviewer name, star rating and date (copy-paste or screenshot). Optionally the per-review "Share review" link for `sourceUrl`. Management confirms they approve showing them (`approved: true`) and someone compares them to the live Google reviews (`verifiedAgainstSource: true`).
+2. **Official API access:** apply for Google Business Profile API access (free, needs Google approval) or use the Places API (billing account required, so needs your approval); then reviews can be loaded through an authorised, supported channel.
+3. **Paid review widget:** a Google-reviews widget service (subscription); needs your approval.
+Whichever route is used, reviewer names and review wording stay exactly as published by Google and are never edited or translated.

@@ -282,19 +282,17 @@ footer a{color:#fff}
 @media (min-width:1260px){.rev__nav--prev{left:-56px}.rev__nav--next{right:-56px}}
 @media (prefers-reduced-motion:reduce){.rev__track{scroll-behavior:auto}}
 
-/* google rating panel (no review cards) */
-.rev__panel{max-width:860px;margin:0 auto;background:#fff;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:clamp(22px,4vw,38px);display:grid;gap:26px;align-items:center}
-.rev__panel-score{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}
-.rev__gline{display:flex;align-items:center;gap:10px;font-size:1.5rem}
-.rev__glabel{font-size:.95rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
-.rev__big{font-size:clamp(3.4rem,2.6rem + 4vw,4.8rem);line-height:1;color:var(--navy);font-weight:800;letter-spacing:-.03em}
-.rev__panel .rev__star{width:26px;height:26px}
-.rev__panel .rev__stars-fg .rev__star{flex:0 0 26px}
-.rev__panel-text{display:flex;flex-direction:column;gap:14px;align-items:center;text-align:center}
-.rev__lead{margin:0;font-size:1.12rem;color:var(--text);font-weight:600}
-.rev__snap{margin:0;font-size:.86rem;color:var(--muted);max-width:34em}
-.rev__panel-text .btn{align-self:center}
-@media (max-width:560px){.btn--block-sm{width:100%}}
-@media (min-width:760px){.rev__panel{grid-template-columns:auto 1fr;gap:44px}.rev__panel-score{padding-right:44px;border-right:1px solid var(--border)}.rev__panel-text{align-items:flex-start;text-align:left}.rev__panel-text .btn{align-self:flex-start}}
-.rev .rev__snap{text-align:center;margin:8px auto 0}
-.rev__panel-text .rev__snap{text-align:inherit;margin:0}
+
+/* google reviews header (compact) + desktop 3-per-row grid */
+.sec-head--tight{margin-bottom:22px}
+.rev__head{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px 12px;margin-top:10px;font-size:1.25rem}
+.rev__head .rev__score{font-size:1.5rem}
+.rev__head .rev__count{font-size:.92rem}
+.rev__head .rev__star{width:18px;height:18px}
+.rev__head .rev__stars-fg .rev__star{flex:0 0 18px}
+.rev__card{min-height:100%}
+@media (min-width:1000px){
+  .rev__track{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));overflow:visible;scroll-snap-type:none;gap:20px;padding:6px 0 16px}
+  .rev__card{flex:none}
+  .rev__nav{display:none!important}
+}

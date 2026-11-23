@@ -145,27 +145,6 @@ for (const cfg of cfgs) {
   if (INFO.reviewsMode === 'hidden') {
     await page.goto(`${base}/${cfg.id}/`, { waitUntil: 'networkidle0' });
     log(!(await page.$('#reviews')), `${cfg.id} Google reviews section is hidden`);
-  } else if (INFO.reviewsMode === 'rating-only') {
-    for (const [label, vp] of [['desktop', { width: 1440, height: 900, deviceScaleFactor: 1 }], ['mobile', { width: 390, height: 844, deviceScaleFactor: 2, isMobile: true, hasTouch: true }]]) {
-      await page.setViewport(vp);
-      for (const lang of ['ms', 'en']) {
-        await page.goto(`${base}/${cfg.id}/?lang=${lang}`, { waitUntil: 'networkidle0' });
-        await page.evaluate(() => document.querySelectorAll('.rv').forEach((e) => e.classList.add('in')));
-        const r = await page.evaluate(() => {
-          const s = document.querySelector('#reviews'); const why = document.querySelector('#why'); const cta = document.querySelector('#contact');
-          const btn = s.querySelector('a.btn');
-          return { order: !!(why.compareDocumentPosition(s) & 4) && !!(s.compareDocumentPosition(cta) & 4), h2: s.querySelector('h2').textContent, text: s.innerText.replace(/\s+/g, ' '),
-            cards: s.querySelectorAll('.rev__card,blockquote,.rev__track').length, btn: { t: btn.textContent.trim(), href: btn.href, target: btn.target, rel: btn.rel },
-            stars: s.querySelector('.rev__stars--agg').getAttribute('aria-label'), brand: !!s.querySelector('.gword'), overflow: document.documentElement.scrollWidth > window.innerWidth,
-            panelW: Math.round(s.querySelector('.rev__panel').getBoundingClientRect().width), fits: s.querySelector('.rev__panel').getBoundingClientRect().right <= window.innerWidth + 1 };
-        });
-        const ms = lang === 'ms';
-        log(r.order && r.h2 === (ms ? 'Apa Kata Pelanggan Kami' : 'What Our Customers Say') && r.btn.t === (ms ? 'Baca Ulasan Google Kami' : 'Read Our Google Reviews') && r.btn.target === '_blank' && /noopener/.test(r.btn.rel) && /^https:\/\/www\.google\.com\/maps\/place\/Agensi\+Pekerjaan\+Final\+Choice/.test(r.btn.href), `${cfg.id} [${label}/${lang}] reviews panel after "Why Choose", before final CTA; button "${r.btn.t}" -> Google listing`);
-        log(/\b4\.8\b/.test(r.text) && /\b109\b/.test(r.text) && (ms ? /23 November 2026/.test(r.text) && /tidak dikemas kini secara automatik/.test(r.text) : /23 November 2026/.test(r.text) && /not updated automatically/.test(r.text)) && /snapshot|gambaran/i.test(r.text), `${cfg.id} [${label}/${lang}] shows 4.8 / 109 as a dated snapshot (23 November 2026), explicitly not live-updating`);
-        log(r.cards === 0 && !/SAMPLE/i.test(r.text) && r.brand && !r.overflow && r.fits, `${cfg.id} [${label}/${lang}] no review cards or sample text; Google branding; panel fits (${r.panelW}px), no overflow`);
-      }
-    }
-    await page.setViewport({ width: 390, height: 844, deviceScaleFactor: 2, isMobile: true, hasTouch: true });
   } else {
     for (const [label, vp] of [['desktop', { width: 1440, height: 900, deviceScaleFactor: 1 }], ['mobile', { width: 390, height: 844, deviceScaleFactor: 2, isMobile: true, hasTouch: true }]]) {
       await page.setViewport(vp);
@@ -181,25 +160,22 @@ for (const cfg of cfgs) {
           return { order: !!(why.compareDocumentPosition(s) & 4) && !!(s.compareDocumentPosition(cta) & 4), h2: s.querySelector('h2').textContent, vis, n: cards.length,
             btn: { t: btn.textContent.trim(), href: btn.href, target: btn.target, rel: btn.rel }, stars: cards.map((c) => c.querySelector('.rev__stars').getAttribute('aria-label')),
             links: cards.every((c) => /^https:\/\/www\.google\.com\/maps\//.test(c.querySelector('a.rev__src').href) && c.querySelector('a.rev__src').target === '_blank'),
-            names: cards.every((c) => c.querySelector('.rev__who strong').textContent.trim().length > 0), agg: s.querySelector('.rev__agg')?.innerText.replace(/\s+/g, ' '), brand: !!s.querySelector('.gword'),
+            names: cards.every((c) => c.querySelector('.rev__who strong').textContent.trim().length > 0), agg: s.querySelector('.rev__head')?.innerText.replace(/\s+/g, ' '), brand: !!s.querySelector('.gword'),
             sample: !!s.querySelector('.dev-banner'), overflow: document.documentElement.scrollWidth > window.innerWidth };
         });
         const title = lang === 'ms' ? 'Apa Kata Pelanggan Kami' : 'What Our Customers Say';
-        const btnT = lang === 'ms' ? 'Baca Lebih Banyak Ulasan di Google' : 'Read More Reviews on Google';
+        const btnT = lang === 'ms' ? 'Lihat Lagi Ulasan di Google' : 'See More Reviews on Google';
         log(r.order && r.h2 === title && r.btn.t === btnT && r.btn.target === '_blank' && /rel|noopener/.test(r.btn.rel) && /^https:\/\/www\.google\.com\/maps\/place\//.test(r.btn.href), `${cfg.id} [${label}/${lang}] reviews: after "Why Choose", before final CTA; title "${r.h2}"; button "${r.btn.t}" -> Google listing`);
-        log(r.brand && r.links && r.names && r.stars.every((s) => /\d/.test(s)) && /4\.8/.test(r.agg) && /109/.test(r.agg) && r.sample === !!INFO.reviewsFixture && !r.overflow, `${cfg.id} [${label}/${lang}] Google branding, rating "${r.agg}", ${r.n} cards each with name/stars/source link, no overflow`);
+        log(r.brand && r.links && r.names && r.stars.every((s) => /\d/.test(s)) && /4\.8/.test(r.agg) && /109/.test(r.agg) && /23 November 2026/.test(r.agg) && /snapshot|gambaran/i.test(r.agg) && r.sample === !!INFO.reviewsFixture && !r.overflow, `${cfg.id} [${label}/${lang}] Google branding, rating "${r.agg}", ${r.n} cards each with name/stars/source link, no overflow`);
         if (lang === 'en') {
-          const want = label === 'desktop' ? Math.min(3, r.n) : 1;
-          log(r.vis === want, `${cfg.id} [${label}] ${r.vis} review card(s) visible at once (expected ${want})`);
-          const moved = await page.evaluate(async (isDesktop) => {
-            const t = document.querySelector('.rev__track'); const cards = [...t.querySelectorAll('.rev__card')];
-            const before = t.scrollLeft;
-            if (isDesktop) document.querySelector('.rev__nav--next').click(); else t.scrollTo({ left: cards[1].offsetLeft - cards[0].offsetLeft, behavior: 'auto' });
-            await new Promise((x) => setTimeout(x, 900));
-            const snapped = isDesktop ? t.scrollLeft > before + 50 : Math.abs(cards[1].getBoundingClientRect().left - t.getBoundingClientRect().left) < 6;
-            return snapped;
-          }, label === 'desktop');
-          log(moved, `${cfg.id} [${label}] carousel ${label === 'desktop' ? 'next arrow scrolls' : 'swipe/scroll snaps to the 2nd card'}`);
+          if (label === 'desktop') {
+            const g = await page.evaluate(() => { const cs = [...document.querySelectorAll('#reviews .rev__card')]; const tops = [...new Set(cs.map((c) => Math.round(c.getBoundingClientRect().top)))]; const rows = tops.map((t) => cs.filter((c) => Math.round(c.getBoundingClientRect().top) === t)); return { perRow: rows.map((r) => r.length), equalH: rows.every((r) => new Set(r.map((c) => Math.round(c.getBoundingClientRect().height))).size === 1), arrows: getComputedStyle(document.querySelector('.rev__nav--next')).display }; });
+            log(g.perRow[0] === Math.min(3, r.n) && g.perRow.every((n, i) => i === g.perRow.length - 1 || n === 3) && g.equalH, `${cfg.id} [desktop] review cards ${g.perRow.join('+')} per row (3 per row), equal heights within each row`);
+          } else {
+            log(r.vis === 1, `${cfg.id} [mobile] ${r.vis} review card visible at once (swipeable)`);
+            const moved = await page.evaluate(async () => { const t = document.querySelector('.rev__track'); const cs = [...t.querySelectorAll('.rev__card')]; t.scrollTo({ left: cs[1].offsetLeft - cs[0].offsetLeft, behavior: 'auto' }); await new Promise((x) => setTimeout(x, 900)); return Math.abs(cs[1].getBoundingClientRect().left - t.getBoundingClientRect().left) < 6; });
+            log(moved, `${cfg.id} [mobile] swipe/scroll snaps to the 2nd card`);
+          }
         }
       }
     }
