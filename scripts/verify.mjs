@@ -181,6 +181,21 @@ for (const cfg of cfgs) {
     }
     await page.setViewport({ width: 390, height: 844, deviceScaleFactor: 2, isMobile: true, hasTouch: true });
   }
+  // exact-wording check of the real Google review cards against the independent expected copy
+  if (INFO.reviewsMode === 'cards' && !INFO.reviewsFixture) {
+    const EXP = JSON.parse(fs.readFileSync(path.join(root, 'tests/fixtures/reviews.expected.json'), 'utf8')).reviews;
+    await page.setViewport({ width: 1440, height: 900, deviceScaleFactor: 1 });
+    for (const lang of ['ms', 'en']) {
+      await page.goto(`${base}/${cfg.id}/?lang=${lang}`, { waitUntil: 'networkidle0' });
+      const got = await page.evaluate(() => [...document.querySelectorAll('#reviews .rev__card')].map((c) => ({ name: c.querySelector('.rev__who strong').textContent, stars: (c.querySelector('.rev__stars').getAttribute('aria-label').match(/\d/) || [''])[0], text: c.querySelector('.rev__text').textContent.replace(/^\u201c|\u201d$/g, ''), when: c.querySelector('.rev__who .muted')?.textContent, link: c.querySelector('a.rev__src').href })));
+      const norm = (s) => s.replace(/\s+/g, ' ').trim();
+      const same = got.length === EXP.length && EXP.every((e, i) => got[i].name === e.name && Number(got[i].stars) === e.stars && norm(got[i].text) === norm(e.text));
+      log(same, `${cfg.id} [${lang}] ${got.length} review cards: names, 5-star ratings and exact wording match the supplied screenshots (${got.map((g) => g.name).join(', ')})`);
+      log(got.every((g) => g.when && /^https:\/\/www\.google\.com\/maps\/place\//.test(g.link)), `${cfg.id} [${lang}] each card shows its date (${got.map((g) => g.when).join(' | ')}) and links to Google`);
+    }
+    const dup = await page.evaluate(() => { const t = document.querySelector('#reviews').innerText; return /\bSAMPLE\b|CONTOH TEKS/.test(t); });
+    log(!dup, `${cfg.id} no sample/fictional review text on the page`);
+  }
   // UTM test: ref tag carries campaign + source
   await page.goto(`${base}/${cfg.id}/?utm_source=facebook&utm_medium=cpc&lang=en`, { waitUntil: 'networkidle0' });
   const utmHref = await page.$eval('[data-wa="general"]', (a) => decodeURIComponent(a.href));

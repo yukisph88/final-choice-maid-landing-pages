@@ -23,14 +23,14 @@ Retrieved 2026-11-23. Internal document.
 - Section "What Our Customers Say" / "Apa Kata Pelanggan Kami" sits after "Why Choose Final Choice?" and before the process and final-enquiry sections. Desktop shows 3 cards with arrows; mobile shows one swipeable card. Review text is shown in its original language and never translated or edited.
 - Layout tests use clearly marked SAMPLE data (`tests/fixtures/reviews.sample.json`) through `node build.mjs --reviews-fixture`. The release build refuses that flag.
 
-## Update 2026-11-23: rating-only panel removed; cards-only design
-Management rejected the rating-only panel and asked for real review cards under a compact header (Google, 4.8, 109 Google reviews, snapshot 23 November 2026), a "See More Reviews on Google" button ("Lihat Lagi Ulasan di Google") and no rating-only substitute. The code now has only two states: review cards (when approved reviews exist) or hidden. Desktop shows 3 cards per row (grid), mobile a swipeable single card. The sample cards (`--reviews-fixture`) are preview-only.
+## Update 2026-11-23: five owner-supplied reviews published
+APFC management supplied five reviews from the company's Google Business Profile (screenshots; evidence record in `google-reviews-evidence.md`, files kept privately, not in this repository):
+Ahmad Asnawie, Fitryy Fitryy, Leong Jia Jun, Gevenia Bae, Chua Soo Jun, all 5 stars. Wording is verbatim (four in full, Ahmad Asnawie as one marked excerpt because his screenshot is cut off). Compact header: Google, 4.8 / 5.0, 109 Google Reviews, Snapshot: 23 November 2026 (not live-updating). Button "Lihat Lagi Ulasan di Google" / "See More Reviews on Google" opens the Google listing's reviews. There is no rating-only fallback.
 
-**Current live state: section hidden**, because no review text has been supplied with authorised access.
+### Remaining requirement (not invented as confirmed)
+- **Reviewers' individual written permission: not obtained.** APFC's own testimonial rule (Maid repo `testimonials.yaml`) asks for it. The reviews are public on Google and are published as owner-supplied material at management's direction, with name, stars, Google attribution and a link back, unedited. Recommended: ask the five reviewers and record a yes; remove any card the same day if someone objects.
+- Ahmad Asnawie's full review text was not supplied (the card shows an exact excerpt); supply it if a longer quote is wanted.
+- Review dates are relative ("5 months ago") as displayed on 23 November 2026. Refresh or replace them when the snapshot is refreshed.
 
-### Exactly what is needed to show real reviews
-Any ONE of these (all keep us within Google's terms):
-1. **Owner-supplied text (fastest):** an APFC Business Profile manager signs in at business.google.com, opens Reviews, chooses 4-6 positive reviews and sends their exact text with reviewer name, star rating and date (copy-paste or screenshot). Optionally the per-review "Share review" link for `sourceUrl`. Management confirms they approve showing them (`approved: true`) and someone compares them to the live Google reviews (`verifiedAgainstSource: true`).
-2. **Official API access:** apply for Google Business Profile API access (free, needs Google approval) or use the Places API (billing account required, so needs your approval); then reviews can be loaded through an authorised, supported channel.
-3. **Paid review widget:** a Google-reviews widget service (subscription); needs your approval.
-Whichever route is used, reviewer names and review wording stay exactly as published by Google and are never edited or translated.
+### To add or change reviews later
+Edit `content/reviews.json` (exact text, name as shown on Google, stars, date, `approved` and `verifiedAgainstSource` true) and keep `tests/fixtures/reviews.expected.json` in step; rebuild and run `node scripts/verify.mjs`.

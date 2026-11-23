@@ -1,5 +1,5 @@
 {
- "_how_to_update": "APFC staff: add each approved review to the 'reviews' list below (copy the text EXACTLY as written on Google, in its original language; never rewrite or translate). Required per review: name (as shown publicly on Google), stars (1-5), text, lang (ms|en|zh|...), sourceUrl (link to the review on Google, or the listing reviews URL), when (as shown on Google, e.g. '5 months ago'), retrievedOn (YYYY-MM-DD), approved (true = APFC approved showing it), verifiedAgainstSource (true = someone compared this text with the live Google review). Reviews missing any of these are NOT shown. If the list is empty the whole section is hidden. Rating/count: update 'rating' only from the live Google listing and set retrievedOn. No paid API is used.",
+ "_how_to_update": "APFC staff: add each approved review to the 'reviews' list below (copy the text EXACTLY as written on Google, in its original language; never rewrite or translate; use '\\u2026' at the start/end of a verbatim excerpt and set excerpt=true). Required per review: name (as shown publicly on Google), stars (1-5), text, lang (ms|en|zh|...), sourceUrl (link to the review on Google, or the listing reviews URL), when (as shown on Google, e.g. '5 months ago'), retrievedOn (YYYY-MM-DD), approved (true = APFC approved showing it), verifiedAgainstSource (true = someone compared this text with the live Google review). Reviews missing any of these are NOT shown. If the list is empty the whole section is hidden. Rating/count: update 'rating' only from the live Google listing and set retrievedOn. No paid API is used.",
  "source": {
   "platform": "Google Maps / Google Business Profile",
   "listingName": "Agensi Pekerjaan Final Choice Sdn. Bhd.",
@@ -16,5 +16,101 @@
   "retrievedOn": "2026-11-23",
   "note": "As displayed publicly on the Google Maps listing on the retrieval date. Changes over time; refresh before each release."
  },
- "reviews": []
+ "reviews": [
+  {
+   "name": "Ahmad Asnawie",
+   "stars": 5,
+   "text": "… The entire process was incredibly smooth, well-guided, and fast. The team didn’t just “process an application” — they actually took time to understand our situation and recommended the right solution based on our real needs. …",
+   "excerpt": true,
+   "lang": "en",
+   "when": {
+    "en": "5 months ago",
+    "ms": "5 bulan lalu"
+   },
+   "sourceUrl": "https://www.google.com/maps/place/Agensi+Pekerjaan+Final+Choice+Sdn.+Bhd./@3.0901292,101.7353457,17z/data=!4m8!3m7!1s0x31cc352069ad3113:0xd57a645b41a52821!8m2!3d3.0901292!4d101.7353457!9m1!1b1!16s%2Fg%2F11h03dfkw9",
+   "retrievedOn": "2026-11-23",
+   "approved": true,
+   "approvedBy": "APFC management (owner-supplied selection, 2026-11-23)",
+   "verifiedAgainstSource": true,
+   "verificationNote": "Compared with the owner-supplied screenshot of the live Google review (see docs/google-reviews-evidence.md). Relative date is as displayed on 2026-11-23.",
+   "reviewerConsent": "not obtained",
+   "evidenceFile": "Screenshot 2026-11-23 164221.png"
+  },
+  {
+   "name": "Fitryy Fitryy",
+   "stars": 5,
+   "text": "Very thankful to Ms Fyera for helping my family find a suitable helper. Their customer service is excellent and very easy to communicate with. The maid is well-mannered, responsible, and helpful with house chores and childcare. Overall, a pleasant experience and worth recommending to others",
+   "excerpt": false,
+   "lang": "en",
+   "when": {
+    "en": "6 months ago",
+    "ms": "6 bulan lalu"
+   },
+   "sourceUrl": "https://www.google.com/maps/place/Agensi+Pekerjaan+Final+Choice+Sdn.+Bhd./@3.0901292,101.7353457,17z/data=!4m8!3m7!1s0x31cc352069ad3113:0xd57a645b41a52821!8m2!3d3.0901292!4d101.7353457!9m1!1b1!16s%2Fg%2F11h03dfkw9",
+   "retrievedOn": "2026-11-23",
+   "approved": true,
+   "approvedBy": "APFC management (owner-supplied selection, 2026-11-23)",
+   "verifiedAgainstSource": true,
+   "verificationNote": "Compared with the owner-supplied screenshot of the live Google review (see docs/google-reviews-evidence.md). Relative date is as displayed on 2026-11-23.",
+   "reviewerConsent": "not obtained",
+   "evidenceFile": "Screenshot 2026-11-23 164243.png"
+  },
+  {
+   "name": "Leong Jia Jun",
+   "stars": 5,
+   "text": "Very pleased with Final Choice Agency, especially Yuki and Ms. Ng. They helped us carefully screen candidates and ensured only quality maids were shortlisted for our selection. Even on weekends, they were always responsive and answered our calls. They also provide training to the maids to ensure they are well-prepared before joining their new families. Will definitely recommend them to others who are looking for helpers.",
+   "excerpt": false,
+   "lang": "en",
+   "when": {
+    "en": "6 months ago",
+    "ms": "6 bulan lalu"
+   },
+   "sourceUrl": "https://www.google.com/maps/place/Agensi+Pekerjaan+Final+Choice+Sdn.+Bhd./@3.0901292,101.7353457,17z/data=!4m8!3m7!1s0x31cc352069ad3113:0xd57a645b41a52821!8m2!3d3.0901292!4d101.7353457!9m1!1b1!16s%2Fg%2F11h03dfkw9",
+   "retrievedOn": "2026-11-23",
+   "approved": true,
+   "approvedBy": "APFC management (owner-supplied selection, 2026-11-23)",
+   "verifiedAgainstSource": true,
+   "verificationNote": "Compared with the owner-supplied screenshot of the live Google review (see docs/google-reviews-evidence.md). Relative date is as displayed on 2026-11-23.",
+   "reviewerConsent": "not obtained",
+   "evidenceFile": "Screenshot 2026-11-23 164259.png"
+  },
+  {
+   "name": "Gevenia Bae",
+   "stars": 5,
+   "text": "Super recommend Miss Ng and Eunice!\nSince it was my first time hiring a helper, I was quite nervous about not getting the right one. But thanks to Miss Ng’s careful matching, I finally got a helper who fits me so well. She looks after my baby and also handles all the housework — honestly, it has made my life so much easier!",
+   "excerpt": false,
+   "lang": "en",
+   "when": {
+    "en": "a year ago",
+    "ms": "setahun lalu"
+   },
+   "sourceUrl": "https://www.google.com/maps/place/Agensi+Pekerjaan+Final+Choice+Sdn.+Bhd./@3.0901292,101.7353457,17z/data=!4m8!3m7!1s0x31cc352069ad3113:0xd57a645b41a52821!8m2!3d3.0901292!4d101.7353457!9m1!1b1!16s%2Fg%2F11h03dfkw9",
+   "retrievedOn": "2026-11-23",
+   "approved": true,
+   "approvedBy": "APFC management (owner-supplied selection, 2026-11-23)",
+   "verifiedAgainstSource": true,
+   "verificationNote": "Compared with the owner-supplied screenshot of the live Google review (see docs/google-reviews-evidence.md). Relative date is as displayed on 2026-11-23.",
+   "reviewerConsent": "not obtained",
+   "evidenceFile": "Screenshot 2026-11-23 164416.png"
+  },
+  {
+   "name": "Chua Soo Jun",
+   "stars": 5,
+   "text": "Professional and Trustworthy Agency\nHighly recommended! Eunice and Ms Ng were patient, professional, and really listened to our needs. They helped us find a maid that matched exactly what we were looking for and gave us all the information we needed. The maid recommended for my baby is caring, gentle, and well-trained. Truly grateful for their support.",
+   "excerpt": false,
+   "lang": "en",
+   "when": {
+    "en": "a year ago",
+    "ms": "setahun lalu"
+   },
+   "sourceUrl": "https://www.google.com/maps/place/Agensi+Pekerjaan+Final+Choice+Sdn.+Bhd./@3.0901292,101.7353457,17z/data=!4m8!3m7!1s0x31cc352069ad3113:0xd57a645b41a52821!8m2!3d3.0901292!4d101.7353457!9m1!1b1!16s%2Fg%2F11h03dfkw9",
+   "retrievedOn": "2026-11-23",
+   "approved": true,
+   "approvedBy": "APFC management (owner-supplied selection, 2026-11-23)",
+   "verifiedAgainstSource": true,
+   "verificationNote": "Compared with the owner-supplied screenshot of the live Google review (see docs/google-reviews-evidence.md). Relative date is as displayed on 2026-11-23.",
+   "reviewerConsent": "not obtained",
+   "evidenceFile": "Screenshot 2026-11-23 164445.png"
+  }
+ ]
 }

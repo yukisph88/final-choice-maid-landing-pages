@@ -209,13 +209,13 @@ function render(cfg) {
     const aggStars = `<span class="rev__stars rev__stars--agg" role="img" ${at('aria-label', `Penilaian ${R.value.toFixed(1)} daripada 5 bintang`, `Rated ${R.value.toFixed(1)} out of 5 stars`)}><span class="rev__stars-bg">${[1, 2, 3, 4, 5].map(() => starSvg('off')).join('')}</span><span class="rev__stars-fg" style="width:${(R.value / 5 * 100).toFixed(1)}%">${[1, 2, 3, 4, 5].map(() => starSvg('on')).join('')}</span></span>`;
     const cards = shownReviews.map((r) => `<article class="rev__card"><div class="rev__top">${starRow(r.stars)}${gword}</div>
         <blockquote class="rev__text" lang="${esc(r.lang || 'en')}">\u201c${esc(r.text)}\u201d</blockquote>
-        <div class="rev__who"><strong>${esc(r.name)}</strong>${r.when ? `<span class="muted">${esc(r.when)}</span>` : ''}
-        <a href="${esc(r.sourceUrl)}" target="_blank" rel="noopener" class="rev__src">${tx('Lihat ulasan asal di Google', 'View original review on Google')}</a></div></article>`).join('\n');
+        <div class="rev__who"><strong>${esc(r.name)}</strong>${r.when ? (typeof r.when === 'object' ? tx(r.when.ms, r.when.en, 'span', 'class="muted"') : `<span class="muted">${esc(r.when)}</span>`) : ''}
+        <a href="${esc(r.sourceUrl)}" target="_blank" rel="noopener" class="rev__src">${tx('Lihat di Google', 'View on Google')}</a></div></article>`).join('\n');
     reviewsSection = `<section id="reviews" class="rev">
   <div class="container">
     <div class="sec-head sec-head--tight">${tx('Ulasan Google', 'Google Reviews', 'span', 'class="eyebrow"')}
       ${tx('Apa Kata Pelanggan Kami', 'What Our Customers Say', 'h2')}
-      <div class="rev__head">${gword}<strong class="rev__score">${R.value.toFixed(1)}</strong>${aggStars}<span class="rev__count">${tx(`${R.count} ulasan Google (gambaran ${dateMs})`, `${R.count} Google reviews (snapshot ${dateEn})`)}</span></div>
+      <div class="rev__head">${gword}<strong class="rev__score">${R.value.toFixed(1)}<span class="rev__of"> / 5.0</span></strong>${aggStars}<span class="rev__count">${tx(`${R.count} Ulasan Google`, `${R.count} Google Reviews`)}</span><span class="rev__snapdate">${tx(`Gambaran: ${dateMs}`, `Snapshot: ${dateEn}`)}</span></div>
       ${reviewsFixture ? '<div class="dev-banner" role="status" style="margin-top:12px;border-radius:8px">SAMPLE DATA: layout preview only, not real reviews</div>' : ''}</div>
     <div class="rev__wrap">
       <button type="button" class="rev__nav rev__nav--prev" ${at('aria-label', 'Ulasan sebelumnya', 'Previous review')}>${ico('chev', 'rot90')}</button>
@@ -223,7 +223,7 @@ function render(cfg) {
       <button type="button" class="rev__nav rev__nav--next" ${at('aria-label', 'Ulasan seterusnya', 'Next review')}>${ico('chev', 'rotm90')}</button>
     </div>
     <div class="rev__cta"><a class="btn btn--navy" href="${esc(S.reviewsUrl)}" target="_blank" rel="noopener" data-track="google_reviews">${tx('Lihat Lagi Ulasan di Google', 'See More Reviews on Google')}</a></div>
-    ${tx('Ulasan dipaparkan seperti yang ditulis pelanggan di Google, tanpa disunting. Penilaian dan bilangan ulasan ialah gambaran pada tarikh yang dinyatakan dan tidak dikemas kini secara automatik.', 'Reviews are shown as written by customers on Google, unedited. The rating and review count are a snapshot on the date shown and do not update automatically.', 'p', 'class="note"')}
+    ${tx('Ulasan dipaparkan seperti yang ditulis pelanggan di Google, tanpa disunting; tanda \u2026 menunjukkan petikan. Tarikh ialah seperti yang dipaparkan di Google pada 23 November 2026. Penilaian dan bilangan ulasan ialah gambaran pada tarikh yang dinyatakan dan tidak dikemas kini secara automatik.', 'Reviews are shown as written by customers on Google, unedited; \u2026 marks an excerpt. Dates are as displayed on Google on 23 November 2026. The rating and review count are a snapshot on the date shown and do not update automatically.', 'p', 'class="note"')}
   </div>
 </section>
 `;
