@@ -1,0 +1,1 @@
+{"name":"lp-qa-tools","private":true,"type":"module","dependencies":{"lighthouse":"^13.6.0","puppeteer-core":"^25.18.1"}}

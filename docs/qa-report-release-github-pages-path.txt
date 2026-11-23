@@ -1,0 +1,92 @@
+PASS  sales-1 [ms] 28 WhatsApp links all -> wa.me/60143313112
+PASS  sales-1 [ms] click-to-call -> tel:+60143313112
+PASS  sales-1 [ms] hero headline: Temui Pembantu Rumah yang Sesuai untuk Keluarga Anda
+PASS  sales-1 [ms] no horizontal overflow at 390px
+PASS  sales-1 [en] 28 WhatsApp links all -> wa.me/60143313112
+PASS  sales-1 [en] click-to-call -> tel:+60143313112
+PASS  sales-1 [en] hero headline: Find the Right Maid for Your Family
+PASS  sales-1 [en] no horizontal overflow at 390px
+PASS  sales-1 [en] no untranslated Malay strings
+PASS  sales-1 [ms] all 28 messages start "Hi Izzaty,"
+PASS  sales-1 [ms] WhatsApp buttons read "WhatsApp Izzaty"
+PASS  sales-1 [ms] contact section names Izzaty
+PASS  sales-1 [ms] footer shows Izzaty + 014-331 3112
+PASS  sales-1 [ms] never mentions Bella
+PASS  sales-1 [en] all 28 messages start "Hi Izzaty,"
+PASS  sales-1 [en] WhatsApp buttons read "WhatsApp Izzaty"
+PASS  sales-1 [en] contact section names Izzaty
+PASS  sales-1 [en] footer shows Izzaty + 014-331 3112
+PASS  sales-1 [en] never mentions Bella
+PASS  sales-1 no RM amounts or prices anywhere in the page source (text, tooltips, attributes)
+PASS  sales-1 [ms] all 8 package cards show "Hubungi Kami untuk Maklumat Pakej"
+PASS  sales-1 [ms] every package button names Izzaty
+PASS  sales-1 [ms] experience highlight at top of Why section (non-numeric)
+PASS  sales-1 [en] all 8 package cards show "Contact Us for Package Details"
+PASS  sales-1 [en] every package button names Izzaty
+PASS  sales-1 [en] experience highlight at top of Why section (non-numeric)
+PASS  sales-1 [ms] 7 displayed names match the biodata records
+PASS  sales-1 [ms] no maid reference codes visible on any card (text, alt, attributes)
+PASS  sales-1 [ms] candidate without confirmed consent is NOT on the public page
+PASS  sales-1 [en] 7 displayed names match the biodata records
+PASS  sales-1 [en] no maid reference codes visible on any card (text, alt, attributes)
+PASS  sales-1 [en] candidate without confirmed consent is NOT on the public page
+PASS  sales-1 7 biodata request messages each name their maid
+PASS  sales-1 contains no trace of the old incorrect number 601433131112
+PASS  sales-1 UTM source appended: ...packages? (Ref: maid-lp-sales1/facebook)
+PASS  sales-1 package message EN: Hi Izzaty, I am interested in the Premium package (Indonesian Maid). M
+PASS  sales-1 same-page anchors all resolve
+PASS  sales-1 all images load
+PASS  sales-1 no failed/404 requests
+PASS  sales-1 no console errors
+PASS  sales-1 robots meta = noindex,nofollow
+PASS  sales-1 package tabs switch
+PASS  sales-1 FAQ expands
+PASS  sales-2 [ms] 28 WhatsApp links all -> wa.me/601118568998
+PASS  sales-2 [ms] click-to-call -> tel:+601118568998
+PASS  sales-2 [ms] hero headline: Temui Pembantu Rumah yang Sesuai untuk Keluarga Anda
+PASS  sales-2 [ms] no horizontal overflow at 390px
+PASS  sales-2 [en] 28 WhatsApp links all -> wa.me/601118568998
+PASS  sales-2 [en] click-to-call -> tel:+601118568998
+PASS  sales-2 [en] hero headline: Find the Right Maid for Your Family
+PASS  sales-2 [en] no horizontal overflow at 390px
+PASS  sales-2 [en] no untranslated Malay strings
+PASS  sales-2 [ms] all 28 messages start "Hi Bella,"
+PASS  sales-2 [ms] WhatsApp buttons read "WhatsApp Bella"
+PASS  sales-2 [ms] contact section names Bella
+PASS  sales-2 [ms] footer shows Bella + 011-1856 8998
+PASS  sales-2 [ms] never mentions Izzaty
+PASS  sales-2 [en] all 28 messages start "Hi Bella,"
+PASS  sales-2 [en] WhatsApp buttons read "WhatsApp Bella"
+PASS  sales-2 [en] contact section names Bella
+PASS  sales-2 [en] footer shows Bella + 011-1856 8998
+PASS  sales-2 [en] never mentions Izzaty
+PASS  sales-2 no RM amounts or prices anywhere in the page source (text, tooltips, attributes)
+PASS  sales-2 [ms] all 8 package cards show "Hubungi Kami untuk Maklumat Pakej"
+PASS  sales-2 [ms] every package button names Bella
+PASS  sales-2 [ms] experience highlight at top of Why section (non-numeric)
+PASS  sales-2 [en] all 8 package cards show "Contact Us for Package Details"
+PASS  sales-2 [en] every package button names Bella
+PASS  sales-2 [en] experience highlight at top of Why section (non-numeric)
+PASS  sales-2 [ms] 7 displayed names match the biodata records
+PASS  sales-2 [ms] no maid reference codes visible on any card (text, alt, attributes)
+PASS  sales-2 [ms] candidate without confirmed consent is NOT on the public page
+PASS  sales-2 [en] 7 displayed names match the biodata records
+PASS  sales-2 [en] no maid reference codes visible on any card (text, alt, attributes)
+PASS  sales-2 [en] candidate without confirmed consent is NOT on the public page
+PASS  sales-2 7 biodata request messages each name their maid
+PASS  sales-2 contains no trace of the old incorrect number 601433131112
+PASS  sales-2 UTM source appended: ...packages? (Ref: maid-lp-sales2/facebook)
+PASS  sales-2 package message EN: Hi Bella, I am interested in the Premium package (Indonesian Maid). Ma
+PASS  sales-2 same-page anchors all resolve
+PASS  sales-2 all images load
+PASS  sales-2 no failed/404 requests
+PASS  sales-2 no console errors
+PASS  sales-2 robots meta = noindex,nofollow
+PASS  sales-2 package tabs switch
+PASS  sales-2 FAQ expands
+PASS  dist contains no PDFs, office files, videos or .env (22 files)
+PASS  dist text contains no passport/ID-number patterns or API-key patterns
+PASS  release dist contains no trace of any candidate without confirmed consent (photo, name, code)
+PASS  sales-1 and sales-2 are identical after masking number, phone display, campaign id and page id
+
+Total failures: 0

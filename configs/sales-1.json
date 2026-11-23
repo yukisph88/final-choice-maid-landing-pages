@@ -1,0 +1,14 @@
+{
+  "id": "sales-1",
+  "label": "Sales Representative - Izzaty",
+  "whatsapp": "60143313112",
+  "phoneDisplay": "014-331 3112",
+  "placeholderNumber": false,
+  "campaign": "maid-lp-sales1",
+  "analytics": {
+    "enabled": false,
+    "provider": "none",
+    "measurementId": ""
+  },
+  "consultant": "Izzaty"
+}

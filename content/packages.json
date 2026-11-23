@@ -1,0 +1,270 @@
+{
+ "_source": "src/data/packages.yaml of yukisph88/final-choice-maid-agency (brochures checked 2026-10-15). By management decision NO prices (and no RM amounts) are stored or shown: customers are sent to their consultant.",
+ "lastReviewed": "2026-10-15",
+ "categories": [
+  {
+   "id": "indonesian",
+   "tab": {
+    "ms": "Indonesia",
+    "en": "Indonesian"
+   },
+   "title": {
+    "ms": "Pembantu Rumah Indonesia",
+    "en": "Indonesian Maid"
+   },
+   "packages": [
+    {
+     "name": "Premium",
+     "terms": [
+      {
+       "ms": "Waranti: 90 hari",
+       "en": "Warranty: 90 days"
+      },
+      {
+       "ms": "Yuran disbursement: terpakai (sila tanya perunding)",
+       "en": "Disbursement fee: applies (ask your consultant)"
+      },
+      {
+       "ms": "Insurans: 1 tahun",
+       "en": "Insurance: 1 year"
+      }
+     ]
+    },
+    {
+     "name": "Platinum",
+     "highlight": true,
+     "terms": [
+      {
+       "ms": "Waranti: 180 hari",
+       "en": "Warranty: 180 days"
+      },
+      {
+       "ms": "Yuran disbursement: terpakai (sila tanya perunding)",
+       "en": "Disbursement fee: applies (ask your consultant)"
+      },
+      {
+       "ms": "Insurans: 2 tahun",
+       "en": "Insurance: 2 years"
+      }
+     ]
+    },
+    {
+     "name": "Diamond",
+     "terms": [
+      {
+       "ms": "Waranti: 180 hari",
+       "en": "Warranty: 180 days"
+      },
+      {
+       "ms": "Yuran disbursement: Percuma (penggantian percuma dalam tempoh waranti, tertakluk kepada terma)",
+       "en": "Disbursement fee: Free (free replacement during the warranty period, subject to terms)"
+      },
+      {
+       "ms": "Insurans: 2 tahun",
+       "en": "Insurance: 2 years"
+      },
+      {
+       "ms": "Pengurusan akaun PERKESO (SOCSO) 24 bulan; caruman dibayar oleh majikan",
+       "en": "24-month SOCSO account management; contributions paid by the employer"
+      }
+     ]
+    }
+   ],
+   "includes": [
+    {
+     "ms": "Kontrak 2 tahun",
+     "en": "2-year contract"
+    },
+    {
+     "ms": "Permit kerja 1 tahun",
+     "en": "1-year work permit"
+    },
+    {
+     "ms": "Pemeriksaan perubatan FOMEMA",
+     "en": "FOMEMA medical check-up"
+    },
+    {
+     "ms": "Yuran pemprosesan di Indonesia dan Malaysia",
+     "en": "Processing fees in Indonesia and Malaysia"
+    },
+    {
+     "ms": "Tiket penerbangan sehala dari Indonesia ke Malaysia",
+     "en": "One-way flight ticket from Indonesia to Malaysia"
+    },
+    {
+     "ms": "Penjemputan di lapangan terbang",
+     "en": "Airport pick-up"
+    }
+   ]
+  },
+  {
+   "id": "indonesian-christian",
+   "tab": {
+    "ms": "Indonesia Kristian",
+    "en": "Indonesian Christian"
+   },
+   "title": {
+    "ms": "Pembantu Rumah Indonesia Kristian",
+    "en": "Indonesian Christian Maid"
+   },
+   "packages": [
+    {
+     "name": "Premium",
+     "terms": [
+      {
+       "ms": "Waranti: 90 hari",
+       "en": "Warranty: 90 days"
+      },
+      {
+       "ms": "Yuran disbursement: terpakai (sila tanya perunding)",
+       "en": "Disbursement fee: applies (ask your consultant)"
+      },
+      {
+       "ms": "Insurans: 1 tahun",
+       "en": "Insurance: 1 year"
+      }
+     ]
+    },
+    {
+     "name": "Platinum",
+     "highlight": true,
+     "terms": [
+      {
+       "ms": "Waranti: 180 hari",
+       "en": "Warranty: 180 days"
+      },
+      {
+       "ms": "Yuran disbursement: terpakai (sila tanya perunding)",
+       "en": "Disbursement fee: applies (ask your consultant)"
+      },
+      {
+       "ms": "Insurans: 2 tahun",
+       "en": "Insurance: 2 years"
+      }
+     ]
+    },
+    {
+     "name": "Diamond",
+     "terms": [
+      {
+       "ms": "Waranti: 180 hari",
+       "en": "Warranty: 180 days"
+      },
+      {
+       "ms": "Yuran disbursement: Percuma (penggantian percuma dalam tempoh waranti, tertakluk kepada terma)",
+       "en": "Disbursement fee: Free (free replacement during the warranty period, subject to terms)"
+      },
+      {
+       "ms": "Insurans: 2 tahun",
+       "en": "Insurance: 2 years"
+      },
+      {
+       "ms": "Pengurusan akaun PERKESO (SOCSO) 24 bulan; caruman dibayar oleh majikan",
+       "en": "24-month SOCSO account management; contributions paid by the employer"
+      }
+     ]
+    }
+   ],
+   "includes": [
+    {
+     "ms": "Kontrak 2 tahun",
+     "en": "2-year contract"
+    },
+    {
+     "ms": "Permit kerja 1 tahun",
+     "en": "1-year work permit"
+    },
+    {
+     "ms": "Pemeriksaan perubatan FOMEMA",
+     "en": "FOMEMA medical check-up"
+    },
+    {
+     "ms": "Yuran pemprosesan di Indonesia dan Malaysia",
+     "en": "Processing fees in Indonesia and Malaysia"
+    },
+    {
+     "ms": "Tiket penerbangan sehala dari Indonesia ke Malaysia",
+     "en": "One-way flight ticket from Indonesia to Malaysia"
+    },
+    {
+     "ms": "Penjemputan di lapangan terbang",
+     "en": "Airport pick-up"
+    }
+   ]
+  },
+  {
+   "id": "filipino",
+   "tab": {
+    "ms": "Filipina",
+    "en": "Filipino"
+   },
+   "title": {
+    "ms": "Pembantu Rumah Filipina",
+    "en": "Filipino Maid"
+   },
+   "packages": [
+    {
+     "name": "Platinum",
+     "terms": [
+      {
+       "ms": "Waranti: 90 hari",
+       "en": "Warranty: 90 days"
+      },
+      {
+       "ms": "Yuran disbursement: terpakai untuk tuntutan waranti (sila tanya perunding)",
+       "en": "Disbursement fee: applies to warranty claims (ask your consultant)"
+      },
+      {
+       "ms": "Penjemputan di lapangan terbang",
+       "en": "Airport pick-up"
+      }
+     ]
+    },
+    {
+     "name": "Diamond",
+     "highlight": true,
+     "terms": [
+      {
+       "ms": "Waranti: 90 hari",
+       "en": "Warranty: 90 days"
+      },
+      {
+       "ms": "Yuran disbursement: Percuma (penggantian percuma, tertakluk kepada terma waranti)",
+       "en": "Disbursement fee: Free (free replacement, subject to warranty terms)"
+      },
+      {
+       "ms": "Pengurusan PERKESO (SOCSO) 24 bulan: bayaran bulanan dan dokumen berkaitan",
+       "en": "24-month SOCSO management: monthly payments and related documents"
+      }
+     ]
+    }
+   ],
+   "includes": [
+    {
+     "ms": "Kontrak pekerjaan 2 tahun",
+     "en": "2-year employment contract"
+    },
+    {
+     "ms": "Permit kerja 1 tahun",
+     "en": "1-year work permit"
+    },
+    {
+     "ms": "Insurans 2 tahun",
+     "en": "2-year insurance"
+    },
+    {
+     "ms": "Yuran Filipina dan Malaysia",
+     "en": "Philippines and Malaysia fees"
+    },
+    {
+     "ms": "Tiket penerbangan sehala",
+     "en": "One-way flight ticket"
+    },
+    {
+     "ms": "Pemeriksaan perubatan FOMEMA",
+     "en": "FOMEMA medical check-up"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,13 @@
+{
+  "name": "final-choice-maid-landing-pages",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Two identical single-page maid landing pages (sales-1, sales-2) for Agensi Pekerjaan Final Choice Sdn. Bhd.",
+  "scripts": {
+    "build": "node build.mjs",
+    "build:release": "node build.mjs --release",
+    "serve": "node scripts/serve.mjs",
+    "verify": "node scripts/verify.mjs"
+  }
+}

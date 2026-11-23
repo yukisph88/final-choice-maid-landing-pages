@@ -1,0 +1,14 @@
+{
+  "id": "sales-2",
+  "label": "Sales Representative - Bella",
+  "whatsapp": "601118568998",
+  "phoneDisplay": "011-1856 8998",
+  "placeholderNumber": false,
+  "campaign": "maid-lp-sales2",
+  "analytics": {
+    "enabled": false,
+    "provider": "none",
+    "measurementId": ""
+  },
+  "consultant": "Bella"
+}

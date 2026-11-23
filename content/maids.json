@@ -1,0 +1,111 @@
+{
+ "_source": "Eight profiles (Filipino set re-selected on 2026-11-23: M2-40, S3-32, S3-39, S3-42) from yukisph88/final-choice-maid-agency with publication consent and photo consent recorded. Photos were chosen for expression, framing, lighting and neat uniform only (never body size). Age is NOT included because showAge is false for every record there. Availability is unconfirmed, so cards never say available. Edit only with approved data. Replacements on 2026-11-23: O2-36 -> O2-29, M2-40 -> M5-42, S3-32 -> S4-39. Candidates without confirmed publication consent are kept out of this file (private, gitignored store) until consent is recorded. Names added; codes kept for internal tracking only and never shown on cards.",
+ "showAge": false,
+ "maids": [
+  {
+   "name": "Cici Pranita Bako",
+   "code": "O2-29-CHMNY-IJM163",
+   "nationality": "indonesian",
+   "years": 3,
+   "photo": "cici-pranita-bako",
+   "skills": [
+    "childcare",
+    "housekeeping"
+   ],
+   "consent": {
+    "verified": true,
+    "note": "Consent recorded in the Maid website record (consentRecorded, photoConsent). Name = approved displayName; separate full-name consent is not recorded: confirm."
+   }
+  },
+  {
+   "name": "Editha Molina Orosco",
+   "code": "M5-42-AHMXY-MA382",
+   "nationality": "filipino",
+   "years": 6,
+   "photo": "editha-molina-orosco",
+   "skills": [
+    "childcare",
+    "elderly",
+    "housekeeping"
+   ],
+   "consent": {
+    "verified": true,
+    "note": "Consent recorded in the Maid website record (consentRecorded, photoConsent). Name = approved displayName; separate full-name consent is not recorded: confirm."
+   }
+  },
+  {
+   "name": "Maria Evi Estera Br Sembiring",
+   "code": "O2-26-CHTNY-IJM155",
+   "nationality": "indonesian",
+   "years": 2,
+   "photo": "maria-evi-estera-br-sembiring",
+   "skills": [
+    "childcare",
+    "housekeeping"
+   ],
+   "consent": {
+    "verified": true,
+    "note": "Consent recorded in the Maid website record (consentRecorded, photoConsent). Name = approved displayName; separate full-name consent is not recorded: confirm."
+   }
+  },
+  {
+   "name": "Jacquiline Navarro Donato",
+   "code": "S3-39-BHFX-MA186",
+   "nationality": "filipino",
+   "years": 6,
+   "photo": "jacquiline-navarro-donato",
+   "skills": [
+    "newborn",
+    "housekeeping"
+   ],
+   "consent": {
+    "verified": true,
+    "note": "Consent recorded in the Maid website record (consentRecorded, photoConsent). Name = approved displayName; separate full-name consent is not recorded: confirm."
+   }
+  },
+  {
+   "name": "Lusiana",
+   "code": "S1-32-HFNY-IJM127",
+   "nationality": "indonesian",
+   "years": 2,
+   "photo": "lusiana",
+   "skills": [
+    "cooking",
+    "housekeeping"
+   ],
+   "consent": {
+    "verified": true,
+    "note": "Consent recorded in the Maid website record (consentRecorded, photoConsent). Name = approved displayName; separate full-name consent is not recorded: confirm."
+   }
+  },
+  {
+   "name": "Purti Siregar",
+   "code": "O2-34-EHMNY-IJM158",
+   "nationality": "indonesian",
+   "years": 3,
+   "photo": "purti-siregar",
+   "skills": [
+    "elderly",
+    "housekeeping"
+   ],
+   "consent": {
+    "verified": true,
+    "note": "Consent recorded in the Maid website record (consentRecorded, photoConsent). Name = approved displayName; separate full-name consent is not recorded: confirm."
+   }
+  },
+  {
+   "name": "Babylyn Salado Lumayot",
+   "code": "S3-42-CFNY-MA177",
+   "nationality": "filipino",
+   "years": 4,
+   "photo": "babylyn-salado-lumayot",
+   "skills": [
+    "childcare"
+   ],
+   "consent": {
+    "verified": true,
+    "note": "Consent recorded in the Maid website record (consentRecorded, photoConsent). Name = approved displayName; separate full-name consent is not recorded: confirm."
+   }
+  }
+ ]
+}

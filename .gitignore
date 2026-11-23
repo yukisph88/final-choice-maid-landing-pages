@@ -1,0 +1,10 @@
+node_modules/
+tools/node_modules/
+dist/
+build-info.json
+private/
+docs/screenshots/
+docs/whatsapp-links.json
+*.pdf
+.env
+.env.*

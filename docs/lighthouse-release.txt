@@ -1,0 +1,8 @@
+sales-2 mobile: perf 71 a11y 100 bp 100 seo 66
+sales-2 desktop: perf 100 a11y 100 bp 100 seo 66
+sales-1 mobile: perf 94 a11y 100 bp 100 seo 66
+sales-1 desktop: perf 100 a11y 100 bp 100 seo 66
+sales-2 mobile: perf 94 a11y 100 bp 100 seo 66
+sales-2 desktop: perf 100 a11y 100 bp 100 seo 66
+sales-1 mobile: perf 94 a11y 100 bp 100 seo 66
+sales-1 desktop: perf 100 a11y 100 bp 100 seo 66

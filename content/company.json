@@ -1,0 +1,43 @@
+{
+  "_source": "Verified company facts copied from yukisph88/final-choice-maid-agency (src/data/site.yaml, LAUNCH_CHECKLIST.md). Re-confirm with management before public launch.",
+  "legalName": "Agensi Pekerjaan Final Choice Sdn. Bhd.",
+  "brandName": "Final Choice",
+  "registrationNo": "201201028954 (1013441-H)",
+  "licence": "JTKSM 483 (Kategori C / Category C)",
+  "email": "apfinalchoice@gmail.com",
+  "address": "No. 58, Jalan Mutiara Barat 6, Taman Mutiara Barat, 56000 Kuala Lumpur",
+  "mapsUrl": "https://www.google.com/maps/search/?api=1&query=No.+58+Jalan+Mutiara+Barat+6+Taman+Mutiara+Barat+56000+Kuala+Lumpur",
+  "hours": {
+    "ms": [
+      "Isnin – Jumaat: 9.00 pagi – 6.00 petang",
+      "Sabtu: 9.00 pagi – 1.00 tengah hari"
+    ],
+    "en": [
+      "Monday – Friday: 9:00 am – 6:00 pm",
+      "Saturday: 9:00 am – 1:00 pm"
+    ]
+  },
+  "experience": {
+    "display": "15+",
+    "basis": "published-company-statements",
+    "confirmed": false,
+    "_note": "Supported by published statements only (company website and two job-board profiles); NOT independently verified against company records. Release build stays blocked until management sets confirmed to true. Do not describe the company as established over 15 years ago: no source gives an incorporation or founding year.",
+    "sources": [
+      {
+        "url": "https://apfinalchoice.com/about-us/",
+        "type": "official company website",
+        "reviewed": "2026-11-23"
+      },
+      {
+        "url": "https://www.ricebowl.my/company/agensi-pekerjaan-final-choice-sdn-bhd",
+        "type": "third-party job board",
+        "reviewed": "2026-11-23"
+      },
+      {
+        "url": "https://www.maukerja.my/en/company/agensi-pekerjaan-final-choice-sdn-bhd",
+        "type": "third-party job board",
+        "reviewed": "2026-11-23"
+      }
+    ]
+  }
+}
