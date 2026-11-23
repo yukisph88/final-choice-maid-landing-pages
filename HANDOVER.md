@@ -29,7 +29,7 @@ GitHub access was not available on the PC where this was built (no GitHub login,
 ## Release blockers and what each needs
 | Item | State | To resolve |
 |---|---|---|
-| Candidate with unconfirmed consent | Kept OUT of the repo and public build (details in `private/maids.pending.json`) | Record written consent for name + photo, then move her entry to `content/maids.json` with `consent.verified: true` and her photo to `assets/maids/`; rebuild, test, push |
+| Candidate with unconfirmed consent | Management approval recorded (2026-11-23, chat confirmation), but the candidate's own consent is not on file. Kept OUT of the repo and public build (details in `private/maids.pending.json`; local preview only) | Obtain her signed publication consent + photo consent + agreed name level (see `docs/consent-and-release-status.md`), then move her entry to `content/maids.json` with `consent.verified: true` and her photo to `assets/maids/`; rebuild, test, push |
 | Full-name permission of the 7 featured maids | Consent and approved display names are recorded; same names are already public on the Maid website; no separate full-name field | Management confirms; if first-name-only, edit `name` in `content/maids.json` |
 | "15+ years" claim | Not confirmed (published statements only). Public pages use a non-numeric statement | Management verifies against company records, then set `experience.confirmed: true` in `content/company.json` (shows "15+") |
 | Logo phone number | The official logo mascot shows 011-1852 3311 (not the consultants' numbers). No approved number-free logo was identified | Provide an approved number-free logo; replace files in `assets/img/` (`logo-160.webp`, `logo-320.webp`, keep sizes) |
