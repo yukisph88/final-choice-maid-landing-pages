@@ -30,6 +30,9 @@ PASS  sales-1 [ms] candidate without confirmed consent is NOT on the public page
 PASS  sales-1 [en] 7 displayed names match the biodata records
 PASS  sales-1 [en] no maid reference codes visible on any card (text, alt, attributes)
 PASS  sales-1 [en] candidate without confirmed consent is NOT on the public page
+PASS  sales-1 [desktop] photo backdrop colours measured from pixels: blue,blue,blue,blue,yellow,yellow,yellow -> 2 contiguous colour block(s), never alternating
+PASS  sales-1 [desktop] colour rows: 4 blue | 3 yellow (rows with mixed colours: 0)
+PASS  sales-1 [mobile] photo backdrop colours measured from pixels: blue,blue,blue,blue,yellow,yellow,yellow -> 2 contiguous colour block(s), never alternating
 PASS  sales-1 7 biodata request messages each name their maid
 PASS  sales-1 contains no trace of the old incorrect number 601433131112
 PASS  sales-1 UTM source appended: ...packages? (Ref: maid-lp-sales1/facebook)
@@ -73,6 +76,9 @@ PASS  sales-2 [ms] candidate without confirmed consent is NOT on the public page
 PASS  sales-2 [en] 7 displayed names match the biodata records
 PASS  sales-2 [en] no maid reference codes visible on any card (text, alt, attributes)
 PASS  sales-2 [en] candidate without confirmed consent is NOT on the public page
+PASS  sales-2 [desktop] photo backdrop colours measured from pixels: blue,blue,blue,blue,yellow,yellow,yellow -> 2 contiguous colour block(s), never alternating
+PASS  sales-2 [desktop] colour rows: 4 blue | 3 yellow (rows with mixed colours: 0)
+PASS  sales-2 [mobile] photo backdrop colours measured from pixels: blue,blue,blue,blue,yellow,yellow,yellow -> 2 contiguous colour block(s), never alternating
 PASS  sales-2 7 biodata request messages each name their maid
 PASS  sales-2 contains no trace of the old incorrect number 601433131112
 PASS  sales-2 UTM source appended: ...packages? (Ref: maid-lp-sales2/facebook)

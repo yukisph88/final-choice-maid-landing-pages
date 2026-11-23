@@ -46,7 +46,7 @@ for (const cfg of cfgs) {
   page.on('console', (m) => { if (m.type() === 'error') errors.push(m.text()); });
   page.on('pageerror', (e) => errors.push(String(e)));
   const failed = [];
-  page.on('requestfailed', (r) => failed.push(r.url()));
+  page.on('requestfailed', (r) => { if (!/ERR_ABORTED/.test(r.failure()?.errorText || '')) failed.push(r.url()); }); // aborted = cancelled by our own navigation; real 404s are caught below
   page.on('response', (r) => { if (r.status() >= 400) failed.push(`${r.status()} ${r.url()}`); });
   await page.setViewport({ width: 390, height: 844, deviceScaleFactor: 2, isMobile: true, hasTouch: true });
   await page.goto(`${base}/${cfg.id}/`, { waitUntil: 'networkidle0' });
@@ -112,6 +112,32 @@ for (const cfg of cfgs) {
       log(!pendingRe || !cards.some((c) => pendingRe.test(c.html)), `${cfg.id} [${lang}] candidate without confirmed consent is NOT on the public page`);
     }
   }
+  // colour grouping: measure the real backdrop colour of every photo and check the order/rows
+  for (const [label, vp] of [['desktop', { width: 1440, height: 900, deviceScaleFactor: 1 }], ['mobile', { width: 390, height: 844, deviceScaleFactor: 2, isMobile: true }]]) {
+    await page.setViewport(vp);
+    await page.goto(`${base}/${cfg.id}/?lang=${label === 'desktop' ? 'ms' : 'en'}`, { waitUntil: 'networkidle0' });
+    const g = await page.evaluate(async () => {
+      document.querySelectorAll('.rv').forEach((e) => e.classList.add('in'));
+      const out = [];
+      for (const c of document.querySelectorAll('.maid')) {
+        const i = c.querySelector('img'); i.loading = 'eager'; await i.decode().catch(() => {});
+        const cv = document.createElement('canvas'); cv.width = i.naturalWidth; cv.height = i.naturalHeight; const x = cv.getContext('2d'); x.drawImage(i, 0, 0);
+        const px = [[4, 4], [cv.width - 5, 4], [4, 40], [cv.width - 5, 40]].map(([a, b]) => x.getImageData(a, b, 1, 1).data);
+        const r = px.reduce((s, p) => s + p[0], 0) / 4, bl = px.reduce((s, p) => s + p[2], 0) / 4;
+        out.push({ measured: r > bl ? 'yellow' : 'blue', declared: c.dataset.bg, top: c.offsetTop });
+      }
+      return out;
+    });
+    const seq = g.map((x) => x.measured);
+    const blocks = seq.filter((c, i) => i === 0 || c !== seq[i - 1]).length;
+    log(g.every((x) => x.measured === x.declared) && blocks <= 2 && seq[0] === 'blue', `${cfg.id} [${label}] photo backdrop colours measured from pixels: ${seq.join(',')} -> ${blocks} contiguous colour block(s), never alternating`);
+    if (label === 'desktop') {
+      const rows = [...new Set(g.map((x) => x.top))].map((t) => g.filter((x) => x.top === t).map((x) => x.measured));
+      const mixedRows = rows.filter((r) => new Set(r).size > 1).length;
+      log(mixedRows === (seq.filter((c) => c === 'blue').length % 4 === 0 ? 0 : 1) || mixedRows === 0, `${cfg.id} [desktop] colour rows: ${rows.map((r) => r.length + ' ' + r[0]).join(' | ')} (rows with mixed colours: ${mixedRows})`);
+    }
+  }
+  await page.setViewport({ width: 390, height: 844, deviceScaleFactor: 2, isMobile: true, hasTouch: true });
   const sc = await page.$$eval('.maid [data-wa="biodata"]', (as) => as.map((a) => decodeURIComponent(a.href)));
   log(sc.length === INFO.names.length && INFO.names.every((n, i) => sc[i].includes(n)), `${cfg.id} ${sc.length} biodata request messages each name their maid`);
   for (const f of ['sales-1', 'sales-2']) { const h = fs.readFileSync(path.join(dist, f, 'index.html'), 'utf8'); if (cfg.id === f) log(!h.includes('601433131112') && !h.includes('3313 1112') && !h.includes('1433131112'), `${f} contains no trace of the old incorrect number 601433131112`); }

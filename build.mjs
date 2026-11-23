@@ -23,6 +23,10 @@ if (withPending && fs.existsSync(path.join(root, 'private/maids.pending.json')))
   pendingMaids = pend.maids;
   maidData.maids.splice(pend.insertAt ?? maidData.maids.length, 0, ...pendingMaids);
 }
+// Group the featured maids by photo background colour (blue first, then yellow); stable within each group.
+const BG_ORDER = { blue: 0, yellow: 1 };
+for (const m of maidData.maids) if (!(m.background in BG_ORDER)) throw new Error(`maid ${m.name}: background must be blue or yellow`);
+maidData.maids = maidData.maids.map((m, i) => ({ m, i })).sort((a, z) => BG_ORDER[a.m.background] - BG_ORDER[z.m.background] || a.i - z.i).map((x) => x.m);
 const css = rd('src/styles.css');
 const js = rd('src/app.js');
 
@@ -128,7 +132,7 @@ function render(cfg) {
   const maidCards = maidData.maids.map((m) => {
     const yrs = m.years;
     const age = maidData.showAge && m.age ? ` \u00b7 ${tx(`${m.age} tahun`, `${m.age} yrs`)}` : '';
-    return `<article class="card maid rv">
+    return `<article class="card maid rv" data-bg="${m.background}">
       <div class="maid__photo">
         <img src="../assets/maids/${m.photo}-480.webp" alt="${esc(m.name)}" width="480" height="600" loading="lazy">
         <span class="maid__exp">${tx(`${yrs} tahun pengalaman`, `${yrs} years\u2019 experience`)}</span>

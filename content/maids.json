@@ -1,5 +1,5 @@
 {
- "_source": "Eight profiles (Filipino set re-selected on 2026-11-23: M2-40, S3-32, S3-39, S3-42) from yukisph88/final-choice-maid-agency with publication consent and photo consent recorded. Photos were chosen for expression, framing, lighting and neat uniform only (never body size). Age is NOT included because showAge is false for every record there. Availability is unconfirmed, so cards never say available. Edit only with approved data. Replacements on 2026-11-23: O2-36 -> O2-29, M2-40 -> M5-42, S3-32 -> S4-39. Candidates without confirmed publication consent are kept out of this file (private, gitignored store) until consent is recorded. Names added; codes kept for internal tracking only and never shown on cards.",
+ "_source": "Eight profiles (Filipino set re-selected on 2026-11-23: M2-40, S3-32, S3-39, S3-42) from yukisph88/final-choice-maid-agency with publication consent and photo consent recorded. Photos were chosen for expression, framing, lighting and neat uniform only (never body size). Age is NOT included because showAge is false for every record there. Availability is unconfirmed, so cards never say available. Edit only with approved data. Replacements on 2026-11-23: O2-36 -> O2-29, M2-40 -> M5-42, S3-32 -> S4-39. Candidates without confirmed publication consent are kept out of this file (private, gitignored store) until consent is recorded. Names added; codes kept for internal tracking only and never shown on cards. The 'background' field (blue|yellow) is the measured colour of each photo's backdrop; the page lists maids grouped by it (blue first).",
  "showAge": false,
  "maids": [
   {
@@ -15,7 +15,8 @@
    "consent": {
     "verified": true,
     "note": "Consent recorded in the Maid website record (consentRecorded, photoConsent). Name = approved displayName; separate full-name consent is not recorded: confirm."
-   }
+   },
+   "background": "blue"
   },
   {
    "name": "Editha Molina Orosco",
@@ -31,7 +32,8 @@
    "consent": {
     "verified": true,
     "note": "Consent recorded in the Maid website record (consentRecorded, photoConsent). Name = approved displayName; separate full-name consent is not recorded: confirm."
-   }
+   },
+   "background": "yellow"
   },
   {
    "name": "Maria Evi Estera Br Sembiring",
@@ -46,7 +48,8 @@
    "consent": {
     "verified": true,
     "note": "Consent recorded in the Maid website record (consentRecorded, photoConsent). Name = approved displayName; separate full-name consent is not recorded: confirm."
-   }
+   },
+   "background": "blue"
   },
   {
    "name": "Jacquiline Navarro Donato",
@@ -61,7 +64,8 @@
    "consent": {
     "verified": true,
     "note": "Consent recorded in the Maid website record (consentRecorded, photoConsent). Name = approved displayName; separate full-name consent is not recorded: confirm."
-   }
+   },
+   "background": "yellow"
   },
   {
    "name": "Lusiana",
@@ -76,7 +80,8 @@
    "consent": {
     "verified": true,
     "note": "Consent recorded in the Maid website record (consentRecorded, photoConsent). Name = approved displayName; separate full-name consent is not recorded: confirm."
-   }
+   },
+   "background": "blue"
   },
   {
    "name": "Purti Siregar",
@@ -91,7 +96,8 @@
    "consent": {
     "verified": true,
     "note": "Consent recorded in the Maid website record (consentRecorded, photoConsent). Name = approved displayName; separate full-name consent is not recorded: confirm."
-   }
+   },
+   "background": "blue"
   },
   {
    "name": "Babylyn Salado Lumayot",
@@ -105,7 +111,8 @@
    "consent": {
     "verified": true,
     "note": "Consent recorded in the Maid website record (consentRecorded, photoConsent). Name = approved displayName; separate full-name consent is not recorded: confirm."
-   }
+   },
+   "background": "yellow"
   }
  ]
 }
