@@ -1,0 +1,20 @@
+{
+ "_how_to_update": "APFC staff: add each approved review to the 'reviews' list below (copy the text EXACTLY as written on Google, in its original language; never rewrite or translate). Required per review: name (as shown publicly on Google), stars (1-5), text, lang (ms|en|zh|...), sourceUrl (link to the review on Google, or the listing reviews URL), when (as shown on Google, e.g. '5 months ago'), retrievedOn (YYYY-MM-DD), approved (true = APFC approved showing it), verifiedAgainstSource (true = someone compared this text with the live Google review). Reviews missing any of these are NOT shown. If the list is empty the whole section is hidden. Rating/count: update 'rating' only from the live Google listing and set retrievedOn. No paid API is used.",
+ "source": {
+  "platform": "Google Maps / Google Business Profile",
+  "listingName": "Agensi Pekerjaan Final Choice Sdn. Bhd.",
+  "category": "Corporate office",
+  "address": "58, Jalan Mutiara Barat 6, Taman Mutiara Barat, 56000 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur",
+  "listingUrl": "https://www.google.com/maps/place/Agensi+Pekerjaan+Final+Choice+Sdn.+Bhd./@3.0901292,101.7353457,17z/data=!4m8!3m7!1s0x31cc352069ad3113:0xd57a645b41a52821!8m2!3d3.0901292!4d101.7353457!9m1!1b1!16s%2Fg%2F11h03dfkw9",
+  "reviewsUrl": "https://www.google.com/maps/place/Agensi+Pekerjaan+Final+Choice+Sdn.+Bhd./@3.0901292,101.7353457,17z/data=!4m8!3m7!1s0x31cc352069ad3113:0xd57a645b41a52821!8m2!3d3.0901292!4d101.7353457!9m1!1b1!16s%2Fg%2F11h03dfkw9",
+  "verification": "Listing opened in Google Maps on 2026-11-23: name matches the company legal name; address matches the official address on apfinalchoice.com and the Maid website; the storefront photo shows the Final Choice signboard. Listing name verified; the Google Business Profile ownership itself is not verifiable from outside."
+ },
+ "rating": {
+  "value": 4.8,
+  "count": 109,
+  "verified": true,
+  "retrievedOn": "2026-11-23",
+  "note": "As displayed publicly on the Google Maps listing on the retrieval date. Changes over time; refresh before each release."
+ },
+ "reviews": []
+}

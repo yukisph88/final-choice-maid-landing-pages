@@ -12,10 +12,18 @@ const rd = (p) => fs.readFileSync(path.join(root, p), 'utf8');
 const json = (p) => JSON.parse(rd(p));
 const release = process.argv.includes('--release');
 const withPending = process.argv.includes('--with-pending');
+const reviewsFixture = process.argv.includes('--reviews-fixture');
+if (release && reviewsFixture) throw new Error('--reviews-fixture is sample data for layout tests and cannot be combined with --release.');
 if (release && withPending) throw new Error('--with-pending is preview-only and cannot be combined with --release.');
 
 const company = json('content/company.json');
 const packages = json('content/packages.json');
+const reviewsData = json('content/reviews.json');
+if (reviewsFixture) reviewsData.reviews = json('tests/fixtures/reviews.sample.json').reviews;
+// Only reviews that are approved, compared with the source, attributed and complete are ever shown.
+const shownReviews = (reviewsData.reviews || []).filter((r) => r && r.approved === true && r.verifiedAgainstSource === true && r.name && r.text && r.sourceUrl && r.retrievedOn && Number.isInteger(r.stars) && r.stars >= 1 && r.stars <= 5);
+const ratingOk = !!(reviewsData.rating && reviewsData.rating.verified === true && reviewsData.rating.value > 0 && reviewsData.rating.count > 0);
+const showReviews = shownReviews.length >= 1;
 const maidData = json('content/maids.json');
 let pendingMaids = [];
 if (withPending && fs.existsSync(path.join(root, 'private/maids.pending.json'))) {
@@ -186,6 +194,38 @@ function render(cfg) {
       ${tx('Dengan pengalaman profesional melebihi 15 tahun dalam pengambilan pembantu rumah, Final Choice komited membantu keluarga di Malaysia mencari pembantu rumah Indonesia dan Filipina yang sesuai melalui pemadanan mengikut keperluan, bantuan proses pengambilan dan sokongan pelanggan.', 'With over 15 years of professional experience in domestic helper recruitment, Final Choice is dedicated to helping Malaysian families find suitable Indonesian and Filipino maids through personalised matching, recruitment assistance and ongoing customer support.', 'p')}
       ${tx('Pengalaman ini merujuk kepada pengambilan dan penempatan pembantu rumah, bukan bilangan tahun sejak syarikat ditubuhkan.', 'This experience relates to domestic helper recruitment and placement, not the number of years since the company was incorporated.', 'p', 'class="exp__note"')}</div></div>` : '';
 
+  // ---- Google reviews (hidden unless approved + verified reviews exist) ----
+  const starSvg = (cls) => `<svg class="icon rev__star ${cls}" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6.1 6.6.9-4.8 4.6 1.2 6.6L12 17.5l-5.9 3.2 1.2-6.6L2.5 9.5l6.6-.9z"/></svg>`;
+  const starRow = (n, cls = '') => `<span class="rev__stars ${cls}" role="img" ${at('aria-label', `${n} daripada 5 bintang`, `${n} out of 5 stars`)}>${[1, 2, 3, 4, 5].map((i) => starSvg(i <= n ? 'on' : 'off')).join('')}</span>`;
+  const gword = '<span class="gword" aria-label="Google"><span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></span>';
+  let reviewsSection = '';
+  if (showReviews) {
+    const R = reviewsData.rating; const S = reviewsData.source;
+    const agg = ratingOk ? `<div class="rev__agg"><strong class="rev__score">${R.value.toFixed(1)}</strong>
+        <span class="rev__stars rev__stars--agg" role="img" ${at('aria-label', `Penilaian ${R.value.toFixed(1)} daripada 5 bintang`, `Rated ${R.value.toFixed(1)} out of 5 stars`)}><span class="rev__stars-bg">${[1, 2, 3, 4, 5].map(() => starSvg('off')).join('')}</span><span class="rev__stars-fg" style="width:${(R.value / 5 * 100).toFixed(1)}%">${[1, 2, 3, 4, 5].map(() => starSvg('on')).join('')}</span></span>
+        <span class="rev__count">${tx(`${R.count} ulasan Google`, `${R.count} Google reviews`)}</span></div>` : '';
+    const cards = shownReviews.map((r) => `<article class="rev__card"><div class="rev__top">${starRow(r.stars)}${gword}</div>
+        <blockquote class="rev__text" lang="${esc(r.lang || 'en')}">\u201c${esc(r.text)}\u201d</blockquote>
+        <div class="rev__who"><strong>${esc(r.name)}</strong><span class="muted">${esc(r.when || '')}</span>
+        <a href="${esc(r.sourceUrl)}" target="_blank" rel="noopener" class="rev__src">${tx('Lihat di Google', 'View on Google')}</a></div></article>`).join('\n');
+    reviewsSection = `<section id="reviews" class="rev">
+  <div class="container">
+    <div class="sec-head">${tx('Ulasan Google', 'Google Reviews', 'span', 'class="eyebrow"')}
+      ${tx('Apa Kata Pelanggan Kami', 'What Our Customers Say', 'h2')}
+      <div class="rev__brand">${gword}${agg}</div>
+      ${reviewsFixture ? '<div class="dev-banner" role="status" style="margin-top:12px;border-radius:8px">SAMPLE DATA: layout preview only, not real reviews</div>' : ''}</div>
+    <div class="rev__wrap">
+      <button type="button" class="rev__nav rev__nav--prev" ${at('aria-label', 'Ulasan sebelumnya', 'Previous review')}>${ico('chev', 'rot90')}</button>
+      <div class="rev__track" tabindex="0" role="region" ${at('aria-label', 'Ulasan pelanggan Google', 'Google customer reviews')}>${cards}</div>
+      <button type="button" class="rev__nav rev__nav--next" ${at('aria-label', 'Ulasan seterusnya', 'Next review')}>${ico('chev', 'rotm90')}</button>
+    </div>
+    <div class="rev__cta"><a class="btn btn--navy" href="${esc(S.reviewsUrl)}" target="_blank" rel="noopener" data-track="google_reviews">${tx('Baca Lebih Banyak Ulasan di Google', 'Read More Reviews on Google')}</a></div>
+    ${tx('Ulasan dipaparkan seperti yang ditulis pelanggan di Google, tanpa disunting. Sumber: Google Maps.', 'Reviews are shown as written by customers on Google, unedited. Source: Google Maps.', 'p', 'class="note"')}
+  </div>
+</section>
+`;
+  }
+
   // ---- Process ----
   const steps = [
     [['Hubungi perunding kami', 'Contact our consultant'], ['Mesej kami melalui WhatsApp.', 'Message us on WhatsApp.']],
@@ -349,6 +389,7 @@ ${cfg.placeholderNumber ? `<div class="dev-banner" role="status">PREVIEW ONLY: p
   </div>
 </section>
 
+${reviewsSection}
 <section id="process">
   <div class="container">
     <div class="sec-head">${tx('Proses', 'Process', 'span', 'class="eyebrow"')}
@@ -447,7 +488,9 @@ fs.writeFileSync(path.join(dist, '.nojekyll'), '');
 const expNumericFinal = !!(company.experience && company.experience.display) && (company.experience.confirmed || !release);
 fs.writeFileSync(path.join(root, 'build-info.json'), JSON.stringify({
   mode: release ? 'release' : 'preview', withPending, names: maidData.maids.map((m) => m.name),
+  reviewsRendered: showReviews, reviewsFixture, reviewCount: shownReviews.length, ratingShown: showReviews && ratingOk,
   experienceClaim: expNumericFinal ? 'numeric-15+' : 'non-numeric', experienceConfirmed: !!(company.experience && company.experience.confirmed),
   unverifiedMaids: unverified
 }, null, 1));
+console.log(`reviews=${showReviews ? shownReviews.length + (reviewsFixture ? ' SAMPLE (preview only)' : '') : 'none (section hidden)'}`);
 console.log(`mode=${release ? 'release' : 'preview'}  maids=${maidData.maids.length}  experience=${expNumericFinal ? 'numeric 15+ (preview only)' : 'non-numeric'}${unverified.length ? '  UNVERIFIED shown (preview): ' + unverified.join(', ') : ''}`);

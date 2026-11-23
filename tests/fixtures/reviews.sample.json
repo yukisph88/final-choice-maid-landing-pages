@@ -1,0 +1,60 @@
+{
+ "_WARNING": "SAMPLE DATA FOR LAYOUT TESTING ONLY. Not real reviews. Only usable with --reviews-fixture in preview builds; the release build refuses it.",
+ "reviews": [
+  {
+   "name": "Sample Reviewer A",
+   "stars": 5,
+   "text": "SAMPLE TEXT - layout test only, not a real review. Short.",
+   "lang": "en",
+   "sourceUrl": "https://www.google.com/maps/place/Agensi+Pekerjaan+Final+Choice+Sdn.+Bhd./@3.0901292,101.7353457,17z/data=!4m8!3m7!1s0x31cc352069ad3113:0xd57a645b41a52821!8m2!3d3.0901292!4d101.7353457!9m1!1b1!16s%2Fg%2F11h03dfkw9",
+   "when": "sample",
+   "retrievedOn": "2026-11-23",
+   "approved": true,
+   "verifiedAgainstSource": true
+  },
+  {
+   "name": "Sample Reviewer B",
+   "stars": 5,
+   "text": "SAMPLE TEXT - layout test only, not a real review. This one is a little longer so that card heights can be checked across the row in desktop and mobile layouts.",
+   "lang": "en",
+   "sourceUrl": "https://www.google.com/maps/place/Agensi+Pekerjaan+Final+Choice+Sdn.+Bhd./@3.0901292,101.7353457,17z/data=!4m8!3m7!1s0x31cc352069ad3113:0xd57a645b41a52821!8m2!3d3.0901292!4d101.7353457!9m1!1b1!16s%2Fg%2F11h03dfkw9",
+   "when": "sample",
+   "retrievedOn": "2026-11-23",
+   "approved": true,
+   "verifiedAgainstSource": true
+  },
+  {
+   "name": "Sample Reviewer C",
+   "stars": 4,
+   "text": "SAMPLE TEXT - layout test only, not a real review.",
+   "lang": "en",
+   "sourceUrl": "https://www.google.com/maps/place/Agensi+Pekerjaan+Final+Choice+Sdn.+Bhd./@3.0901292,101.7353457,17z/data=!4m8!3m7!1s0x31cc352069ad3113:0xd57a645b41a52821!8m2!3d3.0901292!4d101.7353457!9m1!1b1!16s%2Fg%2F11h03dfkw9",
+   "when": "sample",
+   "retrievedOn": "2026-11-23",
+   "approved": true,
+   "verifiedAgainstSource": true
+  },
+  {
+   "name": "Sample Reviewer D",
+   "stars": 5,
+   "text": "CONTOH TEKS - ujian susun atur sahaja, bukan ulasan sebenar.",
+   "lang": "ms",
+   "sourceUrl": "https://www.google.com/maps/place/Agensi+Pekerjaan+Final+Choice+Sdn.+Bhd./@3.0901292,101.7353457,17z/data=!4m8!3m7!1s0x31cc352069ad3113:0xd57a645b41a52821!8m2!3d3.0901292!4d101.7353457!9m1!1b1!16s%2Fg%2F11h03dfkw9",
+   "when": "sample",
+   "retrievedOn": "2026-11-23",
+   "approved": true,
+   "verifiedAgainstSource": true
+  },
+  {
+   "name": "Sample Reviewer E",
+   "stars": 5,
+   "text": "SAMPLE TEXT - layout test only, not a real review.",
+   "lang": "en",
+   "sourceUrl": "https://www.google.com/maps/place/Agensi+Pekerjaan+Final+Choice+Sdn.+Bhd./@3.0901292,101.7353457,17z/data=!4m8!3m7!1s0x31cc352069ad3113:0xd57a645b41a52821!8m2!3d3.0901292!4d101.7353457!9m1!1b1!16s%2Fg%2F11h03dfkw9",
+   "when": "sample",
+   "retrievedOn": "2026-11-23",
+   "approved": true,
+   "verifiedAgainstSource": true
+  }
+ ]
+}

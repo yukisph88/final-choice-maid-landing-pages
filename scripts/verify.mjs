@@ -141,6 +141,49 @@ for (const cfg of cfgs) {
   const sc = await page.$$eval('.maid [data-wa="biodata"]', (as) => as.map((a) => decodeURIComponent(a.href)));
   log(sc.length === INFO.names.length && INFO.names.every((n, i) => sc[i].includes(n)), `${cfg.id} ${sc.length} biodata request messages each name their maid`);
   for (const f of ['sales-1', 'sales-2']) { const h = fs.readFileSync(path.join(dist, f, 'index.html'), 'utf8'); if (cfg.id === f) log(!h.includes('601433131112') && !h.includes('3313 1112') && !h.includes('1433131112'), `${f} contains no trace of the old incorrect number 601433131112`); }
+  // Google reviews section: hidden unless approved + verified reviews exist; carousel/layout/language checks otherwise
+  if (!INFO.reviewsRendered) {
+    await page.goto(`${base}/${cfg.id}/`, { waitUntil: 'networkidle0' });
+    log(!(await page.$('#reviews')), `${cfg.id} Google reviews section is hidden (no approved & source-verified reviews supplied; nothing fabricated)`);
+  } else {
+    for (const [label, vp] of [['desktop', { width: 1440, height: 900, deviceScaleFactor: 1 }], ['mobile', { width: 390, height: 844, deviceScaleFactor: 2, isMobile: true, hasTouch: true }]]) {
+      await page.setViewport(vp);
+      for (const lang of ['ms', 'en']) {
+        await page.goto(`${base}/${cfg.id}/?lang=${lang}`, { waitUntil: 'networkidle0' });
+        await page.evaluate(() => document.querySelectorAll('.rv').forEach((e) => e.classList.add('in')));
+        const r = await page.evaluate(() => {
+          const s = document.querySelector('#reviews'); const t = s.querySelector('.rev__track'); const tr = t.getBoundingClientRect();
+          const cards = [...s.querySelectorAll('.rev__card')];
+          const vis = cards.filter((c) => { const b = c.getBoundingClientRect(); return b.left >= tr.left - 2 && b.right <= tr.right + 2; }).length;
+          const why = document.querySelector('#why'), cta = document.querySelector('#contact');
+          const btn = [...s.querySelectorAll('a.btn')].pop();
+          return { order: !!(why.compareDocumentPosition(s) & 4) && !!(s.compareDocumentPosition(cta) & 4), h2: s.querySelector('h2').textContent, vis, n: cards.length,
+            btn: { t: btn.textContent.trim(), href: btn.href, target: btn.target, rel: btn.rel }, stars: cards.map((c) => c.querySelector('.rev__stars').getAttribute('aria-label')),
+            links: cards.every((c) => /^https:\/\/www\.google\.com\/maps\//.test(c.querySelector('a.rev__src').href) && c.querySelector('a.rev__src').target === '_blank'),
+            names: cards.every((c) => c.querySelector('.rev__who strong').textContent.trim().length > 0), agg: s.querySelector('.rev__agg')?.innerText.replace(/\s+/g, ' '), brand: !!s.querySelector('.gword'),
+            sample: !!s.querySelector('.dev-banner'), overflow: document.documentElement.scrollWidth > window.innerWidth };
+        });
+        const title = lang === 'ms' ? 'Apa Kata Pelanggan Kami' : 'What Our Customers Say';
+        const btnT = lang === 'ms' ? 'Baca Lebih Banyak Ulasan di Google' : 'Read More Reviews on Google';
+        log(r.order && r.h2 === title && r.btn.t === btnT && r.btn.target === '_blank' && /rel|noopener/.test(r.btn.rel) && /^https:\/\/www\.google\.com\/maps\/place\//.test(r.btn.href), `${cfg.id} [${label}/${lang}] reviews: after "Why Choose", before final CTA; title "${r.h2}"; button "${r.btn.t}" -> Google listing`);
+        log(r.brand && r.links && r.names && r.stars.every((s) => /\d/.test(s)) && /4\.8/.test(r.agg) && /109/.test(r.agg) && r.sample === !!INFO.reviewsFixture && !r.overflow, `${cfg.id} [${label}/${lang}] Google branding, rating "${r.agg}", ${r.n} cards each with name/stars/source link, no overflow`);
+        if (lang === 'en') {
+          const want = label === 'desktop' ? Math.min(3, r.n) : 1;
+          log(r.vis === want, `${cfg.id} [${label}] ${r.vis} review card(s) visible at once (expected ${want})`);
+          const moved = await page.evaluate(async (isDesktop) => {
+            const t = document.querySelector('.rev__track'); const cards = [...t.querySelectorAll('.rev__card')];
+            const before = t.scrollLeft;
+            if (isDesktop) document.querySelector('.rev__nav--next').click(); else t.scrollTo({ left: cards[1].offsetLeft - cards[0].offsetLeft, behavior: 'auto' });
+            await new Promise((x) => setTimeout(x, 900));
+            const snapped = isDesktop ? t.scrollLeft > before + 50 : Math.abs(cards[1].getBoundingClientRect().left - t.getBoundingClientRect().left) < 6;
+            return snapped;
+          }, label === 'desktop');
+          log(moved, `${cfg.id} [${label}] carousel ${label === 'desktop' ? 'next arrow scrolls' : 'swipe/scroll snaps to the 2nd card'}`);
+        }
+      }
+    }
+    await page.setViewport({ width: 390, height: 844, deviceScaleFactor: 2, isMobile: true, hasTouch: true });
+  }
   // UTM test: ref tag carries campaign + source
   await page.goto(`${base}/${cfg.id}/?utm_source=facebook&utm_medium=cpc&lang=en`, { waitUntil: 'networkidle0' });
   const utmHref = await page.$eval('[data-wa="general"]', (a) => decodeURIComponent(a.href));

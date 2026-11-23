@@ -92,6 +92,26 @@
     });
   });
 
+  /* ---------- google reviews carousel ---------- */
+  var rt = doc.querySelector('.rev__track');
+  if (rt) {
+    var rp = doc.querySelector('.rev__nav--prev'), rn = doc.querySelector('.rev__nav--next');
+    var rstep = function () { var c = rt.querySelector('.rev__card'); return c ? c.getBoundingClientRect().width + 16 : rt.clientWidth; };
+    var rsync = function () {
+      var max = rt.scrollWidth - rt.clientWidth - 2;
+      rp.setAttribute('aria-disabled', rt.scrollLeft <= 2 ? 'true' : 'false');
+      rn.setAttribute('aria-disabled', rt.scrollLeft >= max ? 'true' : 'false');
+    };
+    rp.addEventListener('click', function () { rt.scrollBy({ left: -rstep(), behavior: 'smooth' }); });
+    rn.addEventListener('click', function () { rt.scrollBy({ left: rstep(), behavior: 'smooth' }); });
+    rt.addEventListener('scroll', function () { window.requestAnimationFrame(rsync); }, { passive: true });
+    rt.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') { e.preventDefault(); rn.click(); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); rp.click(); }
+    });
+    window.addEventListener('resize', rsync); rsync();
+  }
+
   /* ---------- mobile menu ---------- */
   var mb = doc.getElementById('menu-btn'), mn = doc.getElementById('mnav');
   if (mb && mn) {

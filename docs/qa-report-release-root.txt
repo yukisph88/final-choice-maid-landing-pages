@@ -35,6 +35,7 @@ PASS  sales-1 [desktop] colour rows: 4 blue | 3 yellow (rows with mixed colours:
 PASS  sales-1 [mobile] photo backdrop colours measured from pixels: blue,blue,blue,blue,yellow,yellow,yellow -> 2 contiguous colour block(s), never alternating
 PASS  sales-1 7 biodata request messages each name their maid
 PASS  sales-1 contains no trace of the old incorrect number 601433131112
+PASS  sales-1 Google reviews section is hidden (no approved & source-verified reviews supplied; nothing fabricated)
 PASS  sales-1 UTM source appended: ...packages? (Ref: maid-lp-sales1/facebook)
 PASS  sales-1 package message EN: Hi Izzaty, I am interested in the Premium package (Indonesian Maid). M
 PASS  sales-1 same-page anchors all resolve
@@ -81,6 +82,7 @@ PASS  sales-2 [desktop] colour rows: 4 blue | 3 yellow (rows with mixed colours:
 PASS  sales-2 [mobile] photo backdrop colours measured from pixels: blue,blue,blue,blue,yellow,yellow,yellow -> 2 contiguous colour block(s), never alternating
 PASS  sales-2 7 biodata request messages each name their maid
 PASS  sales-2 contains no trace of the old incorrect number 601433131112
+PASS  sales-2 Google reviews section is hidden (no approved & source-verified reviews supplied; nothing fabricated)
 PASS  sales-2 UTM source appended: ...packages? (Ref: maid-lp-sales2/facebook)
 PASS  sales-2 package message EN: Hi Bella, I am interested in the Premium package (Indonesian Maid). Ma
 PASS  sales-2 same-page anchors all resolve

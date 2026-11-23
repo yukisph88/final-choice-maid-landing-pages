@@ -33,6 +33,7 @@ GitHub access was not available on the PC where this was built (no GitHub login,
 | Full-name permission of the 7 featured maids | Consent and approved display names are recorded; same names are already public on the Maid website; no separate full-name field | Management confirms; if first-name-only, edit `name` in `content/maids.json` |
 | "15+ years" claim | Not confirmed (published statements only). Public pages use a non-numeric statement | Management verifies against company records, then set `experience.confirmed: true` in `content/company.json` (shows "15+") |
 | Logo phone number | The official logo mascot shows 011-1852 3311 (not the consultants' numbers). No approved number-free logo was identified | Provide an approved number-free logo; replace files in `assets/img/` (`logo-160.webp`, `logo-320.webp`, keep sizes) |
+| Google reviews section | Built and tested, but HIDDEN: no approved, source-verified review text has been supplied. Rating 4.8 / 109 reviews verified on the Google listing 2026-11-23 | Staff add 4-6 approved reviews to `content/reviews.json` (exact text, name, stars, link, date, `approved` and `verifiedAgainstSource` true); rebuild, test, push. See `docs/google-reviews-source.md` |
 | Search indexing | Pages are `noindex`; robots.txt disallows all | Management approval, then remove the noindex meta and robots Disallow in `build.mjs` |
 
 Release checks are real gates: never edit the build to skip them, and never set `confirmed`/`verified` to true without written evidence.
