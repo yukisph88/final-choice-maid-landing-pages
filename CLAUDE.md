@@ -35,7 +35,7 @@ PowerShell: `$env:PAGES_PATH=1; node scripts/verify.mjs`.
 2. **Experience claim:** `content/company.json` → `experience.confirmed` is `false`, so the public build uses the non-numeric statement. Do not set it to `true` without management's verification against company records (see `docs/experience-claim-sources.md`).
 3. **Numbers:** `placeholderNumber` must be false; the build blocks the known-wrong number `601433131112`.
 4. `--with-pending` and `--reviews-fixture` can never be combined with `--release`.
-5. **Google reviews:** `content/reviews.json`. The section appears only when at least one review has `approved` and `verifiedAgainstSource` true plus name, text, sourceUrl and retrievedOn. Never write review text yourself; never edit or translate a review. See `docs/google-reviews-source.md`.
+5. **Google reviews:** `content/reviews.json`. Without reviews the section shows a dated rating snapshot + link only (no review text). Review cards appear only when at least one review has `approved` and `verifiedAgainstSource` true plus name, text, sourceUrl and retrievedOn. Never write review text yourself; never edit or translate a review. See `docs/google-reviews-source.md`.
 
 ## Open items
 See `HANDOVER.md` (pending-candidate consent, full-name permissions, logo phone number, GitHub Pages setup).

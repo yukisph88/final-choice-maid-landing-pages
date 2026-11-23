@@ -35,7 +35,18 @@ PASS  sales-1 [desktop] colour rows: 4 blue | 3 yellow (rows with mixed colours:
 PASS  sales-1 [mobile] photo backdrop colours measured from pixels: blue,blue,blue,blue,yellow,yellow,yellow -> 2 contiguous colour block(s), never alternating
 PASS  sales-1 7 biodata request messages each name their maid
 PASS  sales-1 contains no trace of the old incorrect number 601433131112
-PASS  sales-1 Google reviews section is hidden (no approved & source-verified reviews supplied; nothing fabricated)
+PASS  sales-1 [desktop/ms] reviews panel after "Why Choose", before final CTA; button "Baca Ulasan Google Kami" -> Google listing
+PASS  sales-1 [desktop/ms] shows 4.8 / 109 as a dated snapshot (23 November 2026), explicitly not live-updating
+PASS  sales-1 [desktop/ms] no review cards or sample text; Google branding; panel fits (860px), no overflow
+PASS  sales-1 [desktop/en] reviews panel after "Why Choose", before final CTA; button "Read Our Google Reviews" -> Google listing
+PASS  sales-1 [desktop/en] shows 4.8 / 109 as a dated snapshot (23 November 2026), explicitly not live-updating
+PASS  sales-1 [desktop/en] no review cards or sample text; Google branding; panel fits (860px), no overflow
+PASS  sales-1 [mobile/ms] reviews panel after "Why Choose", before final CTA; button "Baca Ulasan Google Kami" -> Google listing
+PASS  sales-1 [mobile/ms] shows 4.8 / 109 as a dated snapshot (23 November 2026), explicitly not live-updating
+PASS  sales-1 [mobile/ms] no review cards or sample text; Google branding; panel fits (355px), no overflow
+PASS  sales-1 [mobile/en] reviews panel after "Why Choose", before final CTA; button "Read Our Google Reviews" -> Google listing
+PASS  sales-1 [mobile/en] shows 4.8 / 109 as a dated snapshot (23 November 2026), explicitly not live-updating
+PASS  sales-1 [mobile/en] no review cards or sample text; Google branding; panel fits (355px), no overflow
 PASS  sales-1 UTM source appended: ...packages? (Ref: maid-lp-sales1/facebook)
 PASS  sales-1 package message EN: Hi Izzaty, I am interested in the Premium package (Indonesian Maid). M
 PASS  sales-1 same-page anchors all resolve
@@ -82,7 +93,18 @@ PASS  sales-2 [desktop] colour rows: 4 blue | 3 yellow (rows with mixed colours:
 PASS  sales-2 [mobile] photo backdrop colours measured from pixels: blue,blue,blue,blue,yellow,yellow,yellow -> 2 contiguous colour block(s), never alternating
 PASS  sales-2 7 biodata request messages each name their maid
 PASS  sales-2 contains no trace of the old incorrect number 601433131112
-PASS  sales-2 Google reviews section is hidden (no approved & source-verified reviews supplied; nothing fabricated)
+PASS  sales-2 [desktop/ms] reviews panel after "Why Choose", before final CTA; button "Baca Ulasan Google Kami" -> Google listing
+PASS  sales-2 [desktop/ms] shows 4.8 / 109 as a dated snapshot (23 November 2026), explicitly not live-updating
+PASS  sales-2 [desktop/ms] no review cards or sample text; Google branding; panel fits (860px), no overflow
+PASS  sales-2 [desktop/en] reviews panel after "Why Choose", before final CTA; button "Read Our Google Reviews" -> Google listing
+PASS  sales-2 [desktop/en] shows 4.8 / 109 as a dated snapshot (23 November 2026), explicitly not live-updating
+PASS  sales-2 [desktop/en] no review cards or sample text; Google branding; panel fits (860px), no overflow
+PASS  sales-2 [mobile/ms] reviews panel after "Why Choose", before final CTA; button "Baca Ulasan Google Kami" -> Google listing
+PASS  sales-2 [mobile/ms] shows 4.8 / 109 as a dated snapshot (23 November 2026), explicitly not live-updating
+PASS  sales-2 [mobile/ms] no review cards or sample text; Google branding; panel fits (355px), no overflow
+PASS  sales-2 [mobile/en] reviews panel after "Why Choose", before final CTA; button "Read Our Google Reviews" -> Google listing
+PASS  sales-2 [mobile/en] shows 4.8 / 109 as a dated snapshot (23 November 2026), explicitly not live-updating
+PASS  sales-2 [mobile/en] no review cards or sample text; Google branding; panel fits (355px), no overflow
 PASS  sales-2 UTM source appended: ...packages? (Ref: maid-lp-sales2/facebook)
 PASS  sales-2 package message EN: Hi Bella, I am interested in the Premium package (Indonesian Maid). Ma
 PASS  sales-2 same-page anchors all resolve

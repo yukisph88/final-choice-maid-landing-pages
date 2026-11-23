@@ -24,6 +24,8 @@ if (reviewsFixture) reviewsData.reviews = json('tests/fixtures/reviews.sample.js
 const shownReviews = (reviewsData.reviews || []).filter((r) => r && r.approved === true && r.verifiedAgainstSource === true && r.name && r.text && r.sourceUrl && r.retrievedOn && Number.isInteger(r.stars) && r.stars >= 1 && r.stars <= 5);
 const ratingOk = !!(reviewsData.rating && reviewsData.rating.verified === true && reviewsData.rating.value > 0 && reviewsData.rating.count > 0);
 const showReviews = shownReviews.length >= 1;
+const showRatingOnly = !showReviews && ratingOk; // verified dated rating snapshot + link, no review text
+const reviewsMode = showReviews ? 'cards' : showRatingOnly ? 'rating-only' : 'hidden';
 const maidData = json('content/maids.json');
 let pendingMaids = [];
 if (withPending && fs.existsSync(path.join(root, 'private/maids.pending.json'))) {
@@ -199,31 +201,57 @@ function render(cfg) {
   const starRow = (n, cls = '') => `<span class="rev__stars ${cls}" role="img" ${at('aria-label', `${n} daripada 5 bintang`, `${n} out of 5 stars`)}>${[1, 2, 3, 4, 5].map((i) => starSvg(i <= n ? 'on' : 'off')).join('')}</span>`;
   const gword = '<span class="gword" aria-label="Google"><span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></span>';
   let reviewsSection = '';
-  if (showReviews) {
+  if (reviewsMode !== 'hidden') {
     const R = reviewsData.rating; const S = reviewsData.source;
-    const agg = ratingOk ? `<div class="rev__agg"><strong class="rev__score">${R.value.toFixed(1)}</strong>
-        <span class="rev__stars rev__stars--agg" role="img" ${at('aria-label', `Penilaian ${R.value.toFixed(1)} daripada 5 bintang`, `Rated ${R.value.toFixed(1)} out of 5 stars`)}><span class="rev__stars-bg">${[1, 2, 3, 4, 5].map(() => starSvg('off')).join('')}</span><span class="rev__stars-fg" style="width:${(R.value / 5 * 100).toFixed(1)}%">${[1, 2, 3, 4, 5].map(() => starSvg('on')).join('')}</span></span>
-        <span class="rev__count">${tx(`${R.count} ulasan Google`, `${R.count} Google reviews`)}</span></div>` : '';
-    const cards = shownReviews.map((r) => `<article class="rev__card"><div class="rev__top">${starRow(r.stars)}${gword}</div>
+    const MONTHS = { en: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'], ms: ['Januari', 'Februari', 'Mac', 'April', 'Mei', 'Jun', 'Julai', 'Ogos', 'September', 'Oktober', 'November', 'Disember'] };
+    const [yy, mm, dd] = R.retrievedOn.split('-').map(Number);
+    const dateMs = `${dd} ${MONTHS.ms[mm - 1]} ${yy}`; const dateEn = `${dd} ${MONTHS.en[mm - 1]} ${yy}`;
+    const aggStars = `<span class="rev__stars rev__stars--agg" role="img" ${at('aria-label', `Penilaian ${R.value.toFixed(1)} daripada 5 bintang`, `Rated ${R.value.toFixed(1)} out of 5 stars`)}><span class="rev__stars-bg">${[1, 2, 3, 4, 5].map(() => starSvg('off')).join('')}</span><span class="rev__stars-fg" style="width:${(R.value / 5 * 100).toFixed(1)}%">${[1, 2, 3, 4, 5].map(() => starSvg('on')).join('')}</span></span>`;
+    const snapshot = tx(`Gambaran pada ${dateMs}. Penilaian dan bilangan ulasan sentiasa berubah dan tidak dikemas kini secara automatik di halaman ini.`, `Snapshot taken on ${dateEn}. The rating and number of reviews change over time and are not updated automatically on this page.`, 'p', 'class="rev__snap"');
+    const reviewsBtn = (cls) => `<a class="btn btn--navy ${cls || ''}" href="${esc(S.reviewsUrl)}" target="_blank" rel="noopener" data-track="google_reviews">${tx(showReviews ? 'Baca Lebih Banyak Ulasan di Google' : 'Baca Ulasan Google Kami', showReviews ? 'Read More Reviews on Google' : 'Read Our Google Reviews')}</a>`;
+    const title = `${tx('Ulasan Google', 'Google Reviews', 'span', 'class="eyebrow"')}\n      ${tx('Apa Kata Pelanggan Kami', 'What Our Customers Say', 'h2')}`;
+    if (reviewsMode === 'rating-only') {
+      reviewsSection = `<section id="reviews" class="rev">
+  <div class="container">
+    <div class="sec-head">${title}</div>
+    <div class="rev__panel rv">
+      <div class="rev__panel-score">
+        <div class="rev__gline">${gword}<span class="rev__glabel">${tx('Penilaian', 'Rating')}</span></div>
+        <strong class="rev__big">${R.value.toFixed(1)}</strong>
+        ${aggStars}
+        <span class="rev__count">${tx(`${R.count} ulasan Google`, `${R.count} Google reviews`)}</span>
+      </div>
+      <div class="rev__panel-text">
+        ${tx('Lihat apa kata pelanggan tentang Final Choice di profil Perniagaan Google kami.', 'See what customers say about Final Choice on our Google Business Profile.', 'p', 'class="rev__lead"')}
+        ${reviewsBtn('btn--block-sm')}
+        ${snapshot}
+      </div>
+    </div>
+  </div>
+</section>
+`;
+    } else {
+      const cards = shownReviews.map((r) => `<article class="rev__card"><div class="rev__top">${starRow(r.stars)}${gword}</div>
         <blockquote class="rev__text" lang="${esc(r.lang || 'en')}">\u201c${esc(r.text)}\u201d</blockquote>
         <div class="rev__who"><strong>${esc(r.name)}</strong><span class="muted">${esc(r.when || '')}</span>
         <a href="${esc(r.sourceUrl)}" target="_blank" rel="noopener" class="rev__src">${tx('Lihat di Google', 'View on Google')}</a></div></article>`).join('\n');
-    reviewsSection = `<section id="reviews" class="rev">
+      reviewsSection = `<section id="reviews" class="rev">
   <div class="container">
-    <div class="sec-head">${tx('Ulasan Google', 'Google Reviews', 'span', 'class="eyebrow"')}
-      ${tx('Apa Kata Pelanggan Kami', 'What Our Customers Say', 'h2')}
-      <div class="rev__brand">${gword}${agg}</div>
+    <div class="sec-head">${title}
+      <div class="rev__brand">${gword}<div class="rev__agg"><strong class="rev__score">${R.value.toFixed(1)}</strong>${aggStars}<span class="rev__count">${tx(`${R.count} ulasan Google`, `${R.count} Google reviews`)}</span></div></div>
+      ${snapshot}
       ${reviewsFixture ? '<div class="dev-banner" role="status" style="margin-top:12px;border-radius:8px">SAMPLE DATA: layout preview only, not real reviews</div>' : ''}</div>
     <div class="rev__wrap">
       <button type="button" class="rev__nav rev__nav--prev" ${at('aria-label', 'Ulasan sebelumnya', 'Previous review')}>${ico('chev', 'rot90')}</button>
       <div class="rev__track" tabindex="0" role="region" ${at('aria-label', 'Ulasan pelanggan Google', 'Google customer reviews')}>${cards}</div>
       <button type="button" class="rev__nav rev__nav--next" ${at('aria-label', 'Ulasan seterusnya', 'Next review')}>${ico('chev', 'rotm90')}</button>
     </div>
-    <div class="rev__cta"><a class="btn btn--navy" href="${esc(S.reviewsUrl)}" target="_blank" rel="noopener" data-track="google_reviews">${tx('Baca Lebih Banyak Ulasan di Google', 'Read More Reviews on Google')}</a></div>
+    <div class="rev__cta">${reviewsBtn('')}</div>
     ${tx('Ulasan dipaparkan seperti yang ditulis pelanggan di Google, tanpa disunting. Sumber: Google Maps.', 'Reviews are shown as written by customers on Google, unedited. Source: Google Maps.', 'p', 'class="note"')}
   </div>
 </section>
 `;
+    }
   }
 
   // ---- Process ----
@@ -488,9 +516,9 @@ fs.writeFileSync(path.join(dist, '.nojekyll'), '');
 const expNumericFinal = !!(company.experience && company.experience.display) && (company.experience.confirmed || !release);
 fs.writeFileSync(path.join(root, 'build-info.json'), JSON.stringify({
   mode: release ? 'release' : 'preview', withPending, names: maidData.maids.map((m) => m.name),
-  reviewsRendered: showReviews, reviewsFixture, reviewCount: shownReviews.length, ratingShown: showReviews && ratingOk,
+  reviewsRendered: showReviews, reviewsMode, reviewsFixture, reviewCount: shownReviews.length, ratingShown: showReviews && ratingOk,
   experienceClaim: expNumericFinal ? 'numeric-15+' : 'non-numeric', experienceConfirmed: !!(company.experience && company.experience.confirmed),
   unverifiedMaids: unverified
 }, null, 1));
-console.log(`reviews=${showReviews ? shownReviews.length + (reviewsFixture ? ' SAMPLE (preview only)' : '') : 'none (section hidden)'}`);
+console.log(`reviews=${reviewsMode === 'cards' ? shownReviews.length + (reviewsFixture ? ' SAMPLE (preview only)' : '') + ' cards' : reviewsMode === 'rating-only' ? 'rating snapshot only (no review text)' : 'section hidden'}`);
 console.log(`mode=${release ? 'release' : 'preview'}  maids=${maidData.maids.length}  experience=${expNumericFinal ? 'numeric 15+ (preview only)' : 'non-numeric'}${unverified.length ? '  UNVERIFIED shown (preview): ' + unverified.join(', ') : ''}`);

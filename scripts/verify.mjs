@@ -142,9 +142,30 @@ for (const cfg of cfgs) {
   log(sc.length === INFO.names.length && INFO.names.every((n, i) => sc[i].includes(n)), `${cfg.id} ${sc.length} biodata request messages each name their maid`);
   for (const f of ['sales-1', 'sales-2']) { const h = fs.readFileSync(path.join(dist, f, 'index.html'), 'utf8'); if (cfg.id === f) log(!h.includes('601433131112') && !h.includes('3313 1112') && !h.includes('1433131112'), `${f} contains no trace of the old incorrect number 601433131112`); }
   // Google reviews section: hidden unless approved + verified reviews exist; carousel/layout/language checks otherwise
-  if (!INFO.reviewsRendered) {
+  if (INFO.reviewsMode === 'hidden') {
     await page.goto(`${base}/${cfg.id}/`, { waitUntil: 'networkidle0' });
-    log(!(await page.$('#reviews')), `${cfg.id} Google reviews section is hidden (no approved & source-verified reviews supplied; nothing fabricated)`);
+    log(!(await page.$('#reviews')), `${cfg.id} Google reviews section is hidden`);
+  } else if (INFO.reviewsMode === 'rating-only') {
+    for (const [label, vp] of [['desktop', { width: 1440, height: 900, deviceScaleFactor: 1 }], ['mobile', { width: 390, height: 844, deviceScaleFactor: 2, isMobile: true, hasTouch: true }]]) {
+      await page.setViewport(vp);
+      for (const lang of ['ms', 'en']) {
+        await page.goto(`${base}/${cfg.id}/?lang=${lang}`, { waitUntil: 'networkidle0' });
+        await page.evaluate(() => document.querySelectorAll('.rv').forEach((e) => e.classList.add('in')));
+        const r = await page.evaluate(() => {
+          const s = document.querySelector('#reviews'); const why = document.querySelector('#why'); const cta = document.querySelector('#contact');
+          const btn = s.querySelector('a.btn');
+          return { order: !!(why.compareDocumentPosition(s) & 4) && !!(s.compareDocumentPosition(cta) & 4), h2: s.querySelector('h2').textContent, text: s.innerText.replace(/\s+/g, ' '),
+            cards: s.querySelectorAll('.rev__card,blockquote,.rev__track').length, btn: { t: btn.textContent.trim(), href: btn.href, target: btn.target, rel: btn.rel },
+            stars: s.querySelector('.rev__stars--agg').getAttribute('aria-label'), brand: !!s.querySelector('.gword'), overflow: document.documentElement.scrollWidth > window.innerWidth,
+            panelW: Math.round(s.querySelector('.rev__panel').getBoundingClientRect().width), fits: s.querySelector('.rev__panel').getBoundingClientRect().right <= window.innerWidth + 1 };
+        });
+        const ms = lang === 'ms';
+        log(r.order && r.h2 === (ms ? 'Apa Kata Pelanggan Kami' : 'What Our Customers Say') && r.btn.t === (ms ? 'Baca Ulasan Google Kami' : 'Read Our Google Reviews') && r.btn.target === '_blank' && /noopener/.test(r.btn.rel) && /^https:\/\/www\.google\.com\/maps\/place\/Agensi\+Pekerjaan\+Final\+Choice/.test(r.btn.href), `${cfg.id} [${label}/${lang}] reviews panel after "Why Choose", before final CTA; button "${r.btn.t}" -> Google listing`);
+        log(/\b4\.8\b/.test(r.text) && /\b109\b/.test(r.text) && (ms ? /23 November 2026/.test(r.text) && /tidak dikemas kini secara automatik/.test(r.text) : /23 November 2026/.test(r.text) && /not updated automatically/.test(r.text)) && /snapshot|gambaran/i.test(r.text), `${cfg.id} [${label}/${lang}] shows 4.8 / 109 as a dated snapshot (23 November 2026), explicitly not live-updating`);
+        log(r.cards === 0 && !/SAMPLE/i.test(r.text) && r.brand && !r.overflow && r.fits, `${cfg.id} [${label}/${lang}] no review cards or sample text; Google branding; panel fits (${r.panelW}px), no overflow`);
+      }
+    }
+    await page.setViewport({ width: 390, height: 844, deviceScaleFactor: 2, isMobile: true, hasTouch: true });
   } else {
     for (const [label, vp] of [['desktop', { width: 1440, height: 900, deviceScaleFactor: 1 }], ['mobile', { width: 390, height: 844, deviceScaleFactor: 2, isMobile: true, hasTouch: true }]]) {
       await page.setViewport(vp);

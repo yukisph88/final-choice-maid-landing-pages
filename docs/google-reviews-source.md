@@ -22,3 +22,7 @@ Retrieved 2026-11-23. Internal document.
 ## How the page behaves
 - Section "What Our Customers Say" / "Apa Kata Pelanggan Kami" sits after "Why Choose Final Choice?" and before the process and final-enquiry sections. Desktop shows 3 cards with arrows; mobile shows one swipeable card. Review text is shown in its original language and never translated or edited.
 - Layout tests use clearly marked SAMPLE data (`tests/fixtures/reviews.sample.json`) through `node build.mjs --reviews-fixture`. The release build refuses that flag.
+
+## Update 2026-11-23: public rating panel (no review text)
+At management's request the section is live in a **rating-only** form: Google wordmark, 4.8 rating, 109 reviews, a note that this is a snapshot taken on 23 November 2026 (not live-updating), and a "Read Our Google Reviews" button linking to the Google listing. No review text or reviewer names are shown. When approved reviews are later added to `content/reviews.json`, the section switches automatically to the review-card carousel (and the button reads "Read More Reviews on Google"). The sample cards remain preview-only (`--reviews-fixture`, refused by the release build).
+To refresh the snapshot: re-check the Google listing, then update `rating.value`, `rating.count` and `rating.retrievedOn` in `content/reviews.json`.
