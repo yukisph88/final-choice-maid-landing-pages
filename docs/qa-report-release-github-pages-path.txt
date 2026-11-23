@@ -40,6 +40,7 @@ PASS  sales-1 [desktop/ms] Google branding, rating "G o o g l e 4.8 / 5.0 109 Ul
 PASS  sales-1 [desktop/en] reviews: after "Why Choose", before final CTA; title "What Our Customers Say"; button "See More Reviews on Google" -> Google listing
 PASS  sales-1 [desktop/en] Google branding, rating "G o o g l e 4.8 / 5.0 109 Google Reviews Snapshot: 23 November 2026", 5 cards each with name/stars/source link, no overflow
 PASS  sales-1 [desktop] review cards 3+2 per row (3 per row), equal heights within each row
+PASS  sales-1 [desktop] last row of 2 centred: left margin 186.0px = right margin 186.0px; gap between the two 20.0px = normal row gap 20.0px; card width unchanged
 PASS  sales-1 [mobile/ms] reviews: after "Why Choose", before final CTA; title "Apa Kata Pelanggan Kami"; button "Lihat Lagi Ulasan di Google" -> Google listing
 PASS  sales-1 [mobile/ms] Google branding, rating "G o o g l e 4.8 / 5.0 109 Ulasan Google Gambaran: 23 November 2026", 5 cards each with name/stars/source link, no overflow
 PASS  sales-1 [mobile/en] reviews: after "Why Choose", before final CTA; title "What Our Customers Say"; button "See More Reviews on Google" -> Google listing
@@ -102,6 +103,7 @@ PASS  sales-2 [desktop/ms] Google branding, rating "G o o g l e 4.8 / 5.0 109 Ul
 PASS  sales-2 [desktop/en] reviews: after "Why Choose", before final CTA; title "What Our Customers Say"; button "See More Reviews on Google" -> Google listing
 PASS  sales-2 [desktop/en] Google branding, rating "G o o g l e 4.8 / 5.0 109 Google Reviews Snapshot: 23 November 2026", 5 cards each with name/stars/source link, no overflow
 PASS  sales-2 [desktop] review cards 3+2 per row (3 per row), equal heights within each row
+PASS  sales-2 [desktop] last row of 2 centred: left margin 186.0px = right margin 186.0px; gap between the two 20.0px = normal row gap 20.0px; card width unchanged
 PASS  sales-2 [mobile/ms] reviews: after "Why Choose", before final CTA; title "Apa Kata Pelanggan Kami"; button "Lihat Lagi Ulasan di Google" -> Google listing
 PASS  sales-2 [mobile/ms] Google branding, rating "G o o g l e 4.8 / 5.0 109 Ulasan Google Gambaran: 23 November 2026", 5 cards each with name/stars/source link, no overflow
 PASS  sales-2 [mobile/en] reviews: after "Why Choose", before final CTA; title "What Our Customers Say"; button "See More Reviews on Google" -> Google listing

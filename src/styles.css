@@ -300,3 +300,9 @@ footer a{color:#fff}
 .rev__text{white-space:pre-line}
 .rev__of{font-size:.62em;font-weight:700;color:var(--muted)}
 .rev__snapdate{font-size:.88rem;font-weight:600;color:var(--muted);background:#fff;border:1px solid var(--border);border-radius:999px;padding:3px 12px}
+
+/* desktop: 3 cards per row; an incomplete last row is centred with the same gap */
+@media (min-width:1000px){
+  .rev__track{display:flex;flex-wrap:wrap;justify-content:center;gap:20px;overflow:visible;scroll-snap-type:none;padding:6px 0 16px}
+  .rev__card{flex:0 0 calc((100% - 40px) / 3);min-height:0}
+}
