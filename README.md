@@ -28,7 +28,7 @@ Then run `node build.mjs`. Every WhatsApp button, floating button, click-to-call
 | WhatsApp message wording (BM/EN) | `src/messages.mjs` |
 | Section text, FAQ, headings (BM/EN) | `build.mjs` (each `tx('Malay','English')`) |
 | Look and layout | `src/styles.css` |
-| Service photos | drop `assets/img/service-childcare.webp`, `service-elderly.webp`, `service-household.webp` (640×360); used automatically instead of the icon panels |
+| Service photos | `assets/img/service-<childcare\|elderly\|household>-800.webp` (800×600) + `-480.webp` (480×360), 4:3; used automatically instead of the icon panels (see `docs/service-photos-status.md`) |
 
 Always run `node build.mjs`; both pages are regenerated together, so they cannot drift apart. `node scripts/verify.mjs` re-runs all checks and screenshots (needs `cd tools && npm i` and Chrome).
 

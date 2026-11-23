@@ -34,6 +34,7 @@ GitHub access was not available on the PC where this was built (no GitHub login,
 | "15+ years" claim | Not confirmed (published statements only). Public pages use a non-numeric statement | Management verifies against company records, then set `experience.confirmed: true` in `content/company.json` (shows "15+") |
 | Logo phone number | The official logo mascot shows 011-1852 3311 (not the consultants' numbers). No approved number-free logo was identified | Provide an approved number-free logo; replace files in `assets/img/` (`logo-160.webp`, `logo-320.webp`, keep sizes) |
 | Google reviews section | LIVE with 5 owner-supplied reviews (4.8 / 5.0, 109 reviews, snapshot 2026-11-23) and a See More Reviews button. Reviewers' individual written permission was NOT obtained (APFC testimonial rule); Ahmad Asnawie's card is an excerpt | Ask the five reviewers for permission and record it (see `docs/google-reviews-evidence.md`); remove a card the same day on objection; refresh the snapshot before each release (`rating` in `content/reviews.json`) |
+| Service photos (Childcare, Household) | Real company photos supplied 2026-11-23, prepared but PENDING management approval and NOT public (kept in gitignored `private/assets/img/`; preview with `node build.mjs --with-pending`). Childcare photo shows a child: guardian consent not documented. No Elderly Care photo exists | Approve + document consent (child's guardian, maids shown); supply or approve an elderly-care photo (see `docs/service-photos-status.md`); then move the files to `assets/img/`, release build, test, push |
 | Search indexing | Pages are `noindex`; robots.txt disallows all | Management approval, then remove the noindex meta and robots Disallow in `build.mjs` |
 
 Release checks are real gates: never edit the build to skip them, and never set `confirmed`/`verified` to true without written evidence.
@@ -42,7 +43,7 @@ Release checks are real gates: never edit the build to skip them, and never set 
 - Change a number: edit `configs/sales-1.json` / `sales-2.json` (digits `60…`, `phoneDisplay`), rebuild, run `node scripts/verify.mjs`, push.
 - Change shared content: `content/*.json`, `src/messages.mjs`, text in `build.mjs`, styles `src/styles.css`. Both pages regenerate together.
 - Replace a maid: add the approved photo (480×600 webp, named after her name slug) to `assets/maids/` and her entry to `content/maids.json` (only with consent + approved data; no passport/IC data ever).
-- Service photos (childcare / elderly care / household): drop `assets/img/service-childcare.webp`, `service-elderly.webp`, `service-household.webp` (640×360) to replace the icon panels.
+- Service photos (4:3, WebP, two sizes per card): `assets/img/service-<childcare|elderly|household>-800.webp` (800×600) and `-480.webp` (480×360). A card without photos shows the icon panel. See `docs/service-photos-status.md`.
 - Analytics/ad pixels: disabled; only add with management approval.
 
 ## Tests and documents

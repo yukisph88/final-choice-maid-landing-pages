@@ -198,6 +198,23 @@ for (const cfg of cfgs) {
     const dup = await page.evaluate(() => { const t = document.querySelector('#reviews').innerText; return /\bSAMPLE\b|CONTOH TEKS/.test(t); });
     log(!dup, `${cfg.id} no sample/fictional review text on the page`);
   }
+  // service cards: identical image box (4:3), aligned, photos loaded where configured
+  for (const [label, vp] of [['desktop', { width: 1440, height: 900, deviceScaleFactor: 1 }], ['mobile', { width: 390, height: 844, deviceScaleFactor: 2, isMobile: true, hasTouch: true }]]) {
+    await page.setViewport(vp);
+    await page.goto(`${base}/${cfg.id}/?lang=en`, { waitUntil: 'networkidle0' });
+    const sv = await page.evaluate(async () => {
+      document.querySelectorAll('.rv').forEach((e) => e.classList.add('in'));
+      const cards = [...document.querySelectorAll('#services .card')];
+      for (const c of cards) { const i = c.querySelector('.svc__art img'); if (i) { i.loading = 'eager'; await i.decode().catch(() => {}); } }
+      return cards.map((c) => { const a = c.querySelector('.svc__art').getBoundingClientRect(); const i = c.querySelector('.svc__art img'); const cb = c.getBoundingClientRect(); return { w: Math.round(a.width), h: Math.round(a.height), top: Math.round(cb.top + scrollY), bottom: Math.round(cb.bottom + scrollY), img: i ? i.naturalWidth > 0 : null, alt: i ? i.alt : null, title: c.querySelector('h3').textContent, btn: !!c.querySelector('a[data-wa]') }; });
+    });
+    const same = sv.length === 3 && sv.every((x) => Math.abs(x.w - sv[0].w) <= 1 && Math.abs(x.h - sv[0].h) <= 1 && Math.abs(x.w / x.h - 4 / 3) < 0.02);
+    log(same, `${cfg.id} [${label}] 3 service cards share one image box ${sv[0].w}x${sv[0].h} (4:3)`);
+    if (label === 'desktop') log(sv.every((x) => x.top === sv[0].top && x.bottom === sv[0].bottom), `${cfg.id} [desktop] service cards aligned (same top and bottom)`);
+    const keys = ['childcare', 'elderly', 'household'];
+    log(keys.every((k, i) => (INFO.servicePhotos.includes(k) ? sv[i].img === true && sv[i].alt && sv[i].alt.length > 10 : sv[i].img === null)) && sv.every((x) => x.btn), `${cfg.id} [${label}] service photos present for [${INFO.servicePhotos.join(', ') || 'none'}] and loaded; other cards keep the icon panel; WhatsApp button on every card`);
+  }
+  await page.setViewport({ width: 390, height: 844, deviceScaleFactor: 2, isMobile: true, hasTouch: true });
   // UTM test: ref tag carries campaign + source
   await page.goto(`${base}/${cfg.id}/?utm_source=facebook&utm_medium=cpc&lang=en`, { waitUntil: 'networkidle0' });
   const utmHref = await page.$eval('[data-wa="general"]', (a) => decodeURIComponent(a.href));

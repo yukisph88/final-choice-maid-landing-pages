@@ -51,6 +51,15 @@ const META_DESC = {
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const hasFile = (p) => fs.existsSync(path.join(root, p));
+// Service photos: public ones live in assets/img; photos awaiting approval live in private/assets/img and show in --with-pending previews only.
+const SERVICE_KEYS = ['childcare', 'elderly', 'household'];
+const svcSrc = (k) => (hasFile(`assets/img/service-${k}-800.webp`) ? 'public' : (withPending && hasFile(`private/assets/img/service-${k}-800.webp`) ? 'pending' : null));
+const servicePhotos = SERVICE_KEYS.filter((k) => svcSrc(k));
+const SVC_ALT = {
+  childcare: ['Pembantu rumah Final Choice berinteraksi dengan seorang kanak-kanak semasa aktiviti latihan penjagaan kanak-kanak', 'Final Choice maids interacting with a young child during a childcare training activity'],
+  household: ['Pembantu rumah berpakaian seragam biru Final Choice menjalankan tugas di dapur', 'A maid in a Final Choice blue uniform doing kitchen duties'],
+  elderly: ['Penjagaan warga emas', 'Elderly care']
+};
 
 const ICONS = {
   wa: '<path d="M3 21l1.65-4.9A8.5 8.5 0 1 1 8.2 19.4L3 21z"/><path d="M9 9.2c.4 2.3 2.5 4.4 4.8 4.8l1.4-1.2-1.9-1.2-.8.7c-.8-.4-1.4-1-1.8-1.8l.7-.8-1.2-1.9z"/>',
@@ -109,9 +118,8 @@ function render(cfg) {
       d: ['Bantuan kerja rumah harian seperti mengemas, membasuh dan memasak, mengikut tugas yang dipersetujui.', 'Help with daily housework such as cleaning, laundry and cooking, based on the duties you agree on.'] }
   ];
   const svcCards = services.map((s) => {
-    const photo = hasFile(`assets/img/service-${s.k}.webp`);
-    const art = photo
-      ? `<div class="svc__art"><img src="../assets/img/service-${s.k}.webp" alt="" width="640" height="360" loading="lazy"></div>`
+    const art = svcSrc(s.k)
+      ? `<div class="svc__art svc__art--photo"><img src="../assets/img/service-${s.k}-800.webp" srcset="../assets/img/service-${s.k}-480.webp 480w, ../assets/img/service-${s.k}-800.webp 800w" sizes="(min-width:960px) 360px, (min-width:640px) 45vw, 92vw" ${at('alt', SVC_ALT[s.k][0], SVC_ALT[s.k][1])} width="800" height="600" loading="lazy"></div>`
       : `<div class="svc__art" aria-hidden="true">${ico(s.icon)}</div>`;
     return `<article class="card rv">${art}<div class="card__body">${tx(...s.t, 'h3')}${tx(...s.d, 'p')}
       <a class="btn btn--navy btn--sm" ${wa(s.k)}>${ico('wa')}${tx('Tanya Sekarang', 'Enquire Now')}</a></div></article>`;
@@ -477,6 +485,7 @@ fs.rmSync(dist, { recursive: true, force: true });
 fs.mkdirSync(dist, { recursive: true });
 fs.cpSync(path.join(root, 'assets'), path.join(dist, 'assets'), { recursive: true });
 if (pendingMaids.length) fs.cpSync(path.join(root, 'private/assets/maids'), path.join(dist, 'assets/maids'), { recursive: true });
+if (withPending && fs.existsSync(path.join(root, 'private/assets/img'))) fs.cpSync(path.join(root, 'private/assets/img'), path.join(dist, 'assets/img'), { recursive: true, filter: (src) => !fs.statSync(src).isFile() || path.basename(src).startsWith('service-') });
 for (const c of cfgs) {
   fs.mkdirSync(path.join(dist, c.id), { recursive: true });
   fs.writeFileSync(path.join(dist, c.id, 'index.html'), render(c));
@@ -491,9 +500,11 @@ fs.writeFileSync(path.join(dist, '.nojekyll'), '');
 const expNumericFinal = !!(company.experience && company.experience.display) && (company.experience.confirmed || !release);
 fs.writeFileSync(path.join(root, 'build-info.json'), JSON.stringify({
   mode: release ? 'release' : 'preview', withPending, names: maidData.maids.map((m) => m.name),
+  servicePhotos, servicePhotosPending: servicePhotos.filter((k) => svcSrc(k) === 'pending'),
   reviewsRendered: showReviews, reviewsMode, reviewsFixture, reviewCount: shownReviews.length, ratingShown: showReviews && ratingOk,
   experienceClaim: expNumericFinal ? 'numeric-15+' : 'non-numeric', experienceConfirmed: !!(company.experience && company.experience.confirmed),
   unverifiedMaids: unverified
 }, null, 1));
+console.log(`service photos=${servicePhotos.length ? servicePhotos.map((k) => k + (svcSrc(k) === 'pending' ? ' (PENDING APPROVAL, preview only)' : '')).join(', ') : 'none (icon panels)'}`);
 console.log(`reviews=${reviewsMode === 'cards' ? shownReviews.length + (reviewsFixture ? ' SAMPLE (preview only)' : '') + ' cards' : reviewsMode === 'rating-only' ? 'rating snapshot only (no review text)' : 'section hidden'}`);
 console.log(`mode=${release ? 'release' : 'preview'}  maids=${maidData.maids.length}  experience=${expNumericFinal ? 'numeric 15+ (preview only)' : 'non-numeric'}${unverified.length ? '  UNVERIFIED shown (preview): ' + unverified.join(', ') : ''}`);

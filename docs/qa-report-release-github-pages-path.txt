@@ -52,6 +52,11 @@ PASS  sales-1 [ms] each card shows its date (5 bulan lalu | 6 bulan lalu | 6 bul
 PASS  sales-1 [en] 5 review cards: names, 5-star ratings and exact wording match the supplied screenshots (Ahmad Asnawie, Fitryy Fitryy, Leong Jia Jun, Gevenia Bae, Chua Soo Jun)
 PASS  sales-1 [en] each card shows its date (5 months ago | 6 months ago | 6 months ago | a year ago | a year ago) and links to Google
 PASS  sales-1 no sample/fictional review text on the page
+PASS  sales-1 [desktop] 3 service cards share one image box 350x262 (4:3)
+PASS  sales-1 [desktop] service cards aligned (same top and bottom)
+PASS  sales-1 [desktop] service photos present for [none] and loaded; other cards keep the icon panel; WhatsApp button on every card
+PASS  sales-1 [mobile] 3 service cards share one image box 353x265 (4:3)
+PASS  sales-1 [mobile] service photos present for [none] and loaded; other cards keep the icon panel; WhatsApp button on every card
 PASS  sales-1 UTM source appended: ...packages? (Ref: maid-lp-sales1/facebook)
 PASS  sales-1 package message EN: Hi Izzaty, I am interested in the Premium package (Indonesian Maid). M
 PASS  sales-1 same-page anchors all resolve
@@ -115,6 +120,11 @@ PASS  sales-2 [ms] each card shows its date (5 bulan lalu | 6 bulan lalu | 6 bul
 PASS  sales-2 [en] 5 review cards: names, 5-star ratings and exact wording match the supplied screenshots (Ahmad Asnawie, Fitryy Fitryy, Leong Jia Jun, Gevenia Bae, Chua Soo Jun)
 PASS  sales-2 [en] each card shows its date (5 months ago | 6 months ago | 6 months ago | a year ago | a year ago) and links to Google
 PASS  sales-2 no sample/fictional review text on the page
+PASS  sales-2 [desktop] 3 service cards share one image box 350x263 (4:3)
+PASS  sales-2 [desktop] service cards aligned (same top and bottom)
+PASS  sales-2 [desktop] service photos present for [none] and loaded; other cards keep the icon panel; WhatsApp button on every card
+PASS  sales-2 [mobile] 3 service cards share one image box 353x265 (4:3)
+PASS  sales-2 [mobile] service photos present for [none] and loaded; other cards keep the icon panel; WhatsApp button on every card
 PASS  sales-2 UTM source appended: ...packages? (Ref: maid-lp-sales2/facebook)
 PASS  sales-2 package message EN: Hi Bella, I am interested in the Premium package (Indonesian Maid). Ma
 PASS  sales-2 same-page anchors all resolve
