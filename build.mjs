@@ -58,7 +58,7 @@ const servicePhotos = SERVICE_KEYS.filter((k) => svcSrc(k));
 const SVC_ALT = {
   childcare: ['Pembantu rumah Final Choice berinteraksi dengan seorang kanak-kanak semasa aktiviti latihan penjagaan kanak-kanak', 'Final Choice maids interacting with a young child during a childcare training activity'],
   household: ['Pembantu rumah berpakaian seragam biru Final Choice menjalankan tugas di dapur', 'A maid in a Final Choice blue uniform doing kitchen duties'],
-  elderly: ['Penjagaan warga emas', 'Elderly care']
+  elderly: ['Dua pembantu rumah Final Choice berseragam biru membantu dua warga emas', 'Two Final Choice maids in blue uniforms assisting two elderly women']
 };
 
 const ICONS = {

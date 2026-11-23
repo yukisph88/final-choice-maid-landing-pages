@@ -2,25 +2,23 @@
 
 Updated 2026-11-23. Photos awaiting approval are NOT in this repository and NOT on the live pages.
 
-## Photos
+## Photos (all three now public)
 | Card | Source | State |
 |---|---|---|
-| Childcare | Real Final Choice photo supplied by APFC management on 2026-11-23 (maids with a young child during a childcare activity). Cropped to 4:3 (plain crop, resized to 800x600 and 480x360 WebP, no retouching) | **Pending approval**: stored only in the gitignored `private/assets/img/`; shown only in local preview (`node build.mjs --with-pending`) |
-| Household Duties | Real Final Choice photo supplied by APFC management (maid in the blue uniform doing kitchen duties). Plain 4:3 crop, same sizes | **Pending approval**: same as above |
-| Elderly Care | **No suitable photo found.** Checked: the Maid website training photos (cooking sessions), and the company folders (orientation handbook pages and a care infographic are illustrations, not photos; others are application forms and checklists) | Keeps the existing blue icon panel (now 4:3 like the others). Needs a photo, see below |
+| Childcare | Real Final Choice photo supplied by APFC management on 2026-11-23 (maids with a young child during a childcare activity); plain 4:3 crop | Public |
+| Elderly Care | Real Final Choice photo supplied by APFC management on 2026-11-23 (two maids in blue uniforms assisting two elderly women); plain 4:3 crop of the lower part of the original so both maids and both women stay in frame | Public |
+| Household Duties | Real Final Choice photo supplied by APFC management (maid in the blue uniform doing kitchen duties); plain 4:3 crop | Public |
 
-Untouched originals are kept as internal evidence in `private/evidence/service-photos-2026-11-23/` (gitignored).
+All three: 4:3, WebP, 800x600 and 480x360, no retouching or changes to faces, uniforms or appearance. Untouched originals are kept as internal evidence in `private/evidence/service-photos-2026-11-23/` (gitignored, not in the repository).
 
-## Publication permission: NOT confirmed (cannot be confirmed from the files)
-- **Childcare photo: shows a young child.** A parent or guardian's written consent to publish the child's image is not documented. This is the key missing requirement. The page is public and the repository is public, so a published photo stays in Git history. Without that consent, consider a photo without a child, or one where the child is not identifiable.
-- **Childcare and household photos: the staff/maids shown** (faces partly masked in the childcare photo) need to have agreed to appear in public marketing; no consent record was supplied.
-- **Household photo:** a third-party product cup brand ("Anlene") is visible in the kitchen; this is incidental but management may prefer a crop or a different photo.
-- Approval of the selection by management is requested before any deployment.
+## Approval and permissions (recorded accurately)
+- **Management approval:** APFC management approved all three photos for the public Maid landing pages (stated in chat by the project owner on 2026-11-23, the day they were supplied). Evidence type: chat confirmation, not a signed document.
+- **Not documented (no evidence was supplied, none has been assumed):**
+  - the written consent of a parent or guardian for the young child in the childcare photo;
+  - the consent of the two elderly women in the elderly-care photo (and of the care centre where it appears to have been taken);
+  - the consent of the maids shown to appear in public marketing.
+- **Other notes:** the elderly-care photo shows Chinese-language wall text and a "KASIH SAYANG" sign at the location in part of the background; the household photo shows an incidental "Anlene" cup. The repository is public, so published photos remain in Git history even if later removed.
+- **Recommended:** obtain and file written consents (child's guardian, the elderly women or their family/the centre, the maids). If anyone objects, remove the photo the same day: delete the matching `assets/img/service-<key>-*.webp` files, run the release build and push (the card falls back to its icon panel).
 
-## Elderly care: options (need management approval before use)
-1. **Best: a real Final Choice photo.** Take a short staff photo at the training centre showing caregiver assistance (for example a maid helping an adult volunteer walk or sit), with written consent from everyone shown. Supply it as a photo and it will be used the same way.
-2. **Licensed stock photo (not used automatically).** If management approves, choose a clearly licensed image from a service whose licence allows commercial web use without attribution (for example paid stock such as Adobe Stock or Shutterstock; free libraries such as Unsplash or Pexels also allow commercial use but check each image's licence and any model/property release). It must not be presented as Final Choice training and should show a caregiver with an elderly person in a respectful way. Send the licence/receipt for the record.
-3. Keep the icon panel.
-
-## To publish after approval
-Move the approved files from `private/assets/img/` to `assets/img/` (same names: `service-childcare-800.webp`, `service-childcare-480.webp`, `service-household-800.webp`, `service-household-480.webp`, and `service-elderly-*` when approved), run `node build.mjs --release`, `node scripts/verify.mjs` (also with `PAGES_PATH=1`), commit, push, then `node scripts/live-check.mjs`.
+## Process notes
+Photos awaiting approval can be staged in the gitignored `private/assets/img/` (shown only by `node build.mjs --with-pending`); approved ones live in `assets/img/` with the names `service-childcare-800.webp`, `service-childcare-480.webp`, and the same pattern for `elderly` and `household`.

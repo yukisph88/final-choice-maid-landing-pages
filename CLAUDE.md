@@ -15,7 +15,7 @@ Two identical single-page maid landing pages for Agensi Pekerjaan Final Choice S
 - Text: every `tx('Malay','English')` in `build.mjs`. Default language Bahasa Melayu; EN via the switch or `?lang=en`.
 - WhatsApp messages: `src/messages.mjs` (`Hi {name}, …`, plus `(Ref: campaign[/utm_source])`).
 - Styles `src/styles.css`, runtime `src/app.js` (inlined into each page). Assets in `assets/` use relative paths so the pages work under `/final-choice-maid-landing-pages/`.
-- Service photos: public ones in `assets/img/service-<key>-800|480.webp`; photos awaiting approval stay in `private/assets/img/` and show only with `--with-pending`. Never publish the childcare photo (shows a child) without documented guardian consent.
+- Service photos: `assets/img/service-<childcare|elderly|household>-800|480.webp` (4:3). All three are live (management-approved 2026-11-23; individual consents not documented, see `docs/service-photos-status.md`). New photos awaiting approval stay in `private/assets/img/` and show only with `--with-pending`.
 - `private/` (gitignored, not in the repo): `maids.pending.json` + photos for candidates without confirmed consent (currently one candidate).
 
 ## Commands
