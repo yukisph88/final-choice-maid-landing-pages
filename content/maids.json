@@ -73,6 +73,7 @@
    "name": "Jacquiline Navarro Donato",
    "code": "S3-39-BHFX-MA186",
    "nationality": "filipino",
+   "religion": "Iglesia ng Diyos",
    "years": 6,
    "photo": "jacquiline-navarro-donato",
    "skills": [
@@ -82,6 +83,11 @@
    "consent": {
     "verified": true,
     "note": "Consent recorded in the Maid website record (consentRecorded, photoConsent). Name = approved displayName; separate full-name consent is not recorded: confirm."
+   },
+   "religionConsent": {
+    "verified": true,
+    "date": "2026-11-24",
+    "note": "Owner confirmed in chat on 2026-11-24 that the maid gave permission to publish her religion; on 2026-11-24 the owner instructed that the religion be displayed exactly as recorded in her biodata. Individual consent records are held privately, not in this repository."
    },
    "background": "yellow"
   },
