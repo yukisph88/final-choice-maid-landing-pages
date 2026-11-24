@@ -105,6 +105,14 @@ for (const cfg of cfgs) {
     const cards = await page.evaluate(() => [...document.querySelectorAll('.maid')].map((c) => ({ name: c.querySelector('h3').textContent, alt: c.querySelector('img').alt, type: c.querySelector('.maid__type').textContent, exp: c.querySelector('.maid__exp').textContent, text: c.innerText, html: c.outerHTML.replace(/ href="[^"]*"/g, '').replace(/ data-(code|maid)="[^"]*"/g, '') })));
     log(JSON.stringify(cards.map((c) => c.name)) === JSON.stringify(EXPECT) && EXPECT.every((n) => KNOWN_NAMES.includes(n)), `${cfg.id} [${lang}] ${cards.length} displayed names match the biodata records`);
     log(!cards.some((c) => /[A-Z]\d-\d{2}-[A-Z]+|MA\d{3}|IJM\d{3}|DB\d{3}|SEP\d{3}/i.test(c.html)), `${cfg.id} [${lang}] no maid reference codes visible on any card (text, alt, attributes)`);
+    // religion label: exactly the label expected from the recorded biodata value (build-info), under the nationality; none when not recorded/permitted
+    const relExpect = INFO.religion || {};
+    const relOk = await page.evaluate((exp, ix) => [...document.querySelectorAll('.maid')].every((c) => {
+      const n = c.querySelector('h3').textContent, el = c.querySelector('.maid__rel');
+      if (!exp[n]) return !el;
+      return !!el && el.textContent.trim() === (ix === 0 ? `Agama: ${exp[n][0]}` : `Religion: ${exp[n][1]}`) && c.querySelector('.maid__type').nextElementSibling === el;
+    }), relExpect, lang === 'ms' ? 0 : 1);
+    log(relOk, `${cfg.id} [${lang}] religion label shown for exactly ${Object.keys(relExpect).length} maid(s), right under the nationality, text matches the recorded value`);
     const pendingShown = PENDING.filter((m) => INFO.names.includes(m.name));
     if (pendingShown.length) {
       log(pendingShown.every((p) => cards.some((c) => c.name === p.name)), `${cfg.id} [${lang}] ${pendingShown.length} pending candidate(s) present (PREVIEW ONLY, never public)`);
@@ -268,6 +276,7 @@ const files = walk(dist);
 log(!files.some((f) => /\.(pdf|docx?|xlsx?|csv|env|mp4|mov)$/i.test(f)), `dist contains no PDFs, office files, videos or .env (${files.length} files)`);
 const textBlob = files.filter((f) => /\.(html|txt|json)$/.test(f)).map((f) => fs.readFileSync(f, 'utf8')).join('\n');
 log(!/passport|\b[A-Z]\d{7,8}\b|nric|\bsk-[A-Za-z0-9]{20,}|ghp_[A-Za-z0-9]{20,}|AKIA[0-9A-Z]{12,}/i.test(textBlob), 'dist text contains no passport/ID-number patterns or API-key patterns');
+if (INFO.mode === 'release') log(!/class="maid__rel"|Agama:|Religion:/.test(textBlob) || Object.keys(INFO.religion || {}).length > 0, 'release dist shows no religion label unless a maid has verified public-disclosure permission in content/maids.json');
 if (INFO.mode === 'release') log(!pendingRe || (!files.some((f) => pendingRe.test(f)) && !pendingRe.test(textBlob)), 'release dist contains no trace of any candidate without confirmed consent (photo, name, code)');
 
 // Compare the two built pages: after masking the per-rep values they must be byte-identical.

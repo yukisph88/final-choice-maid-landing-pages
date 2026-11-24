@@ -16,6 +16,12 @@ const reviewsFixture = process.argv.includes('--reviews-fixture');
 if (release && reviewsFixture) throw new Error('--reviews-fixture is sample data for layout tests and cannot be combined with --release.');
 if (release && withPending) throw new Error('--with-pending is preview-only and cannot be combined with --release.');
 
+// Religion is sensitive personal data. Public builds show it only for maids whose content/maids.json entry has BOTH
+// `religion` and `religionConsent.verified === true`. --with-religion is a local preview that reads the private,
+// gitignored private/maids.religion.json (permission pending) and can never be combined with --release.
+const withReligion = process.argv.includes('--with-religion');
+if (release && withReligion) throw new Error('--with-religion is preview-only (permission pending) and cannot be combined with --release.');
+
 const company = json('content/company.json');
 const packages = json('content/packages.json');
 const reviewsData = json('content/reviews.json');
@@ -33,6 +39,18 @@ if (withPending && fs.existsSync(path.join(root, 'private/maids.pending.json')))
   pendingMaids = pend.maids;
   maidData.maids.splice(pend.insertAt ?? maidData.maids.length, 0, ...pendingMaids);
 }
+// Customer-friendly religion labels: Islam/Muslim -> Muslim, Christian/Roman Catholic -> Christian,
+// anything else -> the recorded religion exactly as written. Nothing is ever inferred; no record = no label.
+const REL_MAP = { islam: ['Muslim', 'Muslim'], muslim: ['Muslim', 'Muslim'], christian: ['Kristian', 'Christian'], christianity: ['Kristian', 'Christian'], 'roman catholic': ['Kristian', 'Christian'] };
+const relLabel = (raw) => { const k = String(raw || '').trim().toLowerCase(); return k ? (REL_MAP[k] || [String(raw).trim(), String(raw).trim()]) : null; };
+if (withReligion) {
+  const rf = path.join(root, 'private/maids.religion.json');
+  if (!fs.existsSync(rf)) throw new Error('--with-religion needs private/maids.religion.json');
+  const byCode = new Map(json('private/maids.religion.json').religions.map((r) => [r.code, r.recorded]));
+  for (const m of maidData.maids) if (!m.religion && byCode.has(m.code)) m.religion = byCode.get(m.code);
+}
+const unconsentedReligion = maidData.maids.filter((m) => m.religion && !(m.religionConsent && m.religionConsent.verified === true)).map((m) => m.name);
+if (release && unconsentedReligion.length) throw new Error(`Release build blocked: religion has no verified public-disclosure permission for: ${unconsentedReligion.join(', ')}. Remove the religion field or record the permission (religionConsent.verified).`);
 // Group the featured maids by photo background colour (blue first, then yellow); stable within each group.
 const BG_ORDER = { blue: 0, yellow: 1 };
 for (const m of maidData.maids) if (!(m.background in BG_ORDER)) throw new Error(`maid ${m.name}: background must be blue or yellow`);
@@ -157,7 +175,7 @@ function render(cfg) {
       </div>
       <div class="card__body">
         <h3>${esc(m.name)}</h3>
-        <p class="maid__type">${tx(...NATMAID[m.nationality])}${age}</p>
+        <p class="maid__type">${tx(...NATMAID[m.nationality])}${age}</p>${(() => { const r = relLabel(m.religion); return r ? `\n        <p class="maid__rel">${tx(`Agama: ${r[0]}`, `Religion: ${r[1]}`)}</p>` : ''; })()}
         <div class="chips">${m.skills.map((s) => tx(...SKILL[s], 'span', 'class="chip"')).join('')}</div>
         ${tx('Status: tertakluk pengesahan', 'Status: subject to confirmation', 'p', 'class="maid__status"')}
         <a class="btn btn--wa btn--sm" ${wa('biodata', { code: m.code, maid: m.name })}>${ico('wa')}${tx('Minta Biodata', 'Request Biodata')}</a>
@@ -499,7 +517,7 @@ fs.writeFileSync(path.join(dist, '.nojekyll'), '');
 
 const expNumericFinal = !!(company.experience && company.experience.display) && (company.experience.confirmed || !release);
 fs.writeFileSync(path.join(root, 'build-info.json'), JSON.stringify({
-  mode: release ? 'release' : 'preview', withPending, names: maidData.maids.map((m) => m.name),
+  mode: release ? 'release' : 'preview', withPending, withReligion, names: maidData.maids.map((m) => m.name), religion: Object.fromEntries(maidData.maids.filter((m) => m.religion).map((m) => [m.name, relLabel(m.religion)])),
   servicePhotos, servicePhotosPending: servicePhotos.filter((k) => svcSrc(k) === 'pending'),
   reviewsRendered: showReviews, reviewsMode, reviewsFixture, reviewCount: shownReviews.length, ratingShown: showReviews && ratingOk,
   experienceClaim: expNumericFinal ? 'numeric-15+' : 'non-numeric', experienceConfirmed: !!(company.experience && company.experience.confirmed),

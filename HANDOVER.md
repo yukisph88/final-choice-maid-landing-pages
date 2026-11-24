@@ -1,6 +1,6 @@
 # HANDOVER – Final Choice maid landing pages
 
-Status at handover (2026-11-23): **built and fully tested locally; NOT yet published.** Everything below tells you how to continue from your normal laptop.
+Status (updated 2026-11-24): **LIVE on GitHub Pages (noindex).** Both pages return HTTP 200; the latest deploy ("Deploy landing pages" workflow) succeeded for commit `431f85b` on 2026-11-23 and `main` has nothing unpushed. The development folder is now `C:\Users\user\Desktop\APFC Maid Landing Pages` (normal laptop, not inside OneDrive). Local build and full QA (`PAGES_PATH=1 node scripts/verify.mjs`) re-verified on 2026-11-24: 0 failures.
 
 ## What exists
 - Izzaty: `/sales-1/` – WhatsApp +60 14-331 3112 (`60143313112`), campaign `maid-lp-sales1`
@@ -8,23 +8,17 @@ Status at handover (2026-11-23): **built and fully tested locally; NOT yet publi
 - Target URLs: https://yukisph88.github.io/final-choice-maid-landing-pages/sales-1/ and `/sales-2/`
 - Both pages come from one template (`build.mjs`); only name, number and campaign ID differ. Bahasa Melayu default, English switch. No prices, no ages, real maid names, codes hidden.
 
-## Get the project on your laptop
-Option A (this folder is in OneDrive: `Desktop\APFC Sales System\final-choice-maid-landing-pages`): it should sync automatically, including the gitignored `private/` folder.
-Option B (after it is on GitHub): `git clone https://github.com/yukisph88/final-choice-maid-landing-pages.git`. The clone does NOT contain `private/` (by design); copy it from the office PC/OneDrive if you need the pending candidate.
-Requirements: Node.js 22+. For tests also `cd tools && npm install` and Google Chrome. See `CLAUDE.md` for all commands.
+## Local setup (this laptop)
+- Project folder: `C:\Users\user\Desktop\APFC Maid Landing Pages` (a clone of `https://github.com/yukisph88/final-choice-maid-landing-pages`, branch `main`).
+- The clone does NOT contain the gitignored `private/` folder (pending candidate data, review screenshots in `private/evidence/`). Copy it from the office PC/OneDrive only if needed. Without it, `--with-pending` previews have no pending candidate.
+- Installed and verified: Node v24, `cd tools && npm install` done (118 packages, 0 vulnerabilities), Google Chrome at `C:\Program Files (x86)\Google\Chrome\Application\chrome.exe` (path used by `scripts/verify.mjs`; override with `CHROME_PATH`).
+- Re-verified 2026-11-24: `node build.mjs` and `node build.mjs --release` succeed (7 maids, 5 review cards, 3 service photos); `PAGES_PATH=1 node scripts/verify.mjs` = 0 failures. `verify.mjs` writes an untracked `docs/qa-report.txt`; delete it or leave it untracked.
 
-## Publishing to GitHub Pages (steps still to do)
-GitHub access was not available on the PC where this was built (no GitHub login, no `gh`), so the repository has **not** been created or pushed yet.
-1. On github.com (account yukisph88) create a **new, empty, public** repository named `final-choice-maid-landing-pages` (no README/licence/gitignore). Public is required for Pages on a free account.
-2. In this folder run:
-   ```
-   git remote add origin https://github.com/yukisph88/final-choice-maid-landing-pages.git
-   git push -u origin main
-   ```
-   (Git Credential Manager will open a browser to sign in.)
-3. Repository Settings → Pages → Build and deployment → Source: **GitHub Actions**.
-4. Actions tab → "Deploy landing pages" → Run workflow (it also runs on every push to `main`). It runs `node build.mjs --release`.
-5. Open both URLs, click through the WhatsApp buttons, switch language, check mobile. Run `node scripts/verify.mjs` against the live site by adapting `base` if needed.
+## Publishing status (live)
+- Repository: `yukisph88/final-choice-maid-landing-pages` (public). Pages source: GitHub Actions.
+- Live URLs (HTTP 200 on 2026-11-24): https://yukisph88.github.io/final-choice-maid-landing-pages/sales-1/ and `/sales-2/`. Both are `noindex`.
+- Deployment: workflow "Deploy landing pages" runs `node build.mjs --release` on every push to `main` (and manually). Last 5 runs, all successful, latest `431f85b` (2026-11-23 09:35 UTC). **Pushing to `main` therefore deploys to the public site: get the owner's approval first.**
+- After any change that goes live: open both URLs, click through the WhatsApp buttons, switch language, check mobile.
 
 ## Release blockers and what each needs
 | Item | State | To resolve |
@@ -35,6 +29,7 @@ GitHub access was not available on the PC where this was built (no GitHub login,
 | Logo phone number | The official logo mascot shows 011-1852 3311 (not the consultants' numbers). No approved number-free logo was identified | Provide an approved number-free logo; replace files in `assets/img/` (`logo-160.webp`, `logo-320.webp`, keep sizes) |
 | Google reviews section | LIVE with 5 owner-supplied reviews (4.8 / 5.0, 109 reviews, snapshot 2026-11-23) and a See More Reviews button. Reviewers' individual written permission was NOT obtained (APFC testimonial rule); Ahmad Asnawie's card is an excerpt | Ask the five reviewers for permission and record it (see `docs/google-reviews-evidence.md`); remove a card the same day on objection; refresh the snapshot before each release (`rating` in `content/reviews.json`) |
 | Service photos (all three cards) | LIVE with real company photos approved by management (chat confirmation, 2026-11-23). Individual consents NOT documented: the child (guardian) in the childcare photo, the two elderly women (and the care centre) in the elderly-care photo, and the maids shown | File written consents; remove a photo the same day on objection (delete `assets/img/service-<key>-*.webp`, release build, push). See `docs/service-photos-status.md` |
+| Religion label on maid cards (staff feedback, 2026-11-24) | **Design approved by the owner (chat, 2026-11-24)** after reviewing the local preview on both pages (EN/BM, desktop/mobile): labels, photos, names, skills, layout and both WhatsApp numbers stay exactly as previewed. Design approval is NOT publication permission. Built, tested and committed locally (not pushed); NOT public; **permissions outstanding for all 7 maids and Jacquiline's label unconfirmed** (nothing recorded yet). Staff checklist: `docs/religion-consent-checklist.md` (includes a separate field to confirm one maid’s public label); private pre-filled copy `private/religion-consent-checklist.md`. All 7 featured maids have a religion recorded in their biodata (private staging records), but every record has "show religion = No" and no maid-specific permission to disclose religion is on file. Values are in `private/maids.religion.json` only; the live site shows no religion. One maid’s recorded religion is a church name outside the Muslim/Christian mapping list (details only in the private files) | For each maid: written permission to publish religion; staff confirm that maid’s label wording; then add `religion` + `religionConsent` (`verified: true`, note/date) to her entry in `content/maids.json`, release build, verify, owner approval, push |
 | Search indexing | Pages are `noindex`; robots.txt disallows all | Management approval, then remove the noindex meta and robots Disallow in `build.mjs` |
 
 Release checks are real gates: never edit the build to skip them, and never set `confirmed`/`verified` to true without written evidence.
