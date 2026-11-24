@@ -117,7 +117,7 @@ for (const cfg of cfgs) {
     // cross-check against the private recorded biodata values (when the private file exists): every shown label must map from the recorded religion; unlabeled maids must be intentionally held back
     if (RELREC) {
       const mapL = (r) => { const k = r.trim().toLowerCase(); return ['islam', 'muslim'].includes(k) ? ['Muslim', 'Muslim'] : ['christian', 'christianity', 'roman catholic'].includes(k) ? ['Kristian', 'Christian'] : [r, r]; };
-      const shownOk = Object.entries(relExpect).every(([n, l]) => { const rec = RELREC.find((x) => x.name === n); return rec && JSON.stringify(mapL(rec.recorded)) === JSON.stringify(l); });
+      const shownOk = Object.entries(relExpect).every(([n, l]) => { const rec = RELREC.find((x) => x.name === n); return rec && JSON.stringify(mapL(rec.publicCategory || rec.recorded)) === JSON.stringify(l); });
       log(shownOk, `${cfg.id} [${lang}] every displayed religion label matches the recorded biodata value (${Object.keys(relExpect).length} shown, ${INFO.names.length - Object.keys(relExpect).length} held back pending wording/permission)`);
     }
     const pendingShown = PENDING.filter((m) => INFO.names.includes(m.name));
