@@ -1,6 +1,6 @@
 # Religion display – consent checklist (7 featured maids)
 
-**Status (2026-11-24):** design of the religion labels approved by the owner (chat). Publication permissions: NONE recorded yet for any of the 7 maids; Jacquiline's public label not yet confirmed. Nothing is public.
+**Status (2026-11-24):** design approved by the owner. The owner confirmed in chat on 2026-11-24 that permission was obtained from all 7 maids; the individual records are held privately (not in GitHub). Religion is published for 6 maids; one maid’s label stays hidden until her preferred wording is confirmed.
 
 **Purpose:** record each maid's own permission to show her religion publicly on the landing pages (sales-1 and sales-2). Religion is sensitive personal data (PDPA). The 2026-10-19 company authorisation covered name, biodata and photo only and explicitly excluded religion, so every maid needs her own, separate permission.
 

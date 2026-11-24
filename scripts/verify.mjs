@@ -17,7 +17,8 @@ const PREFIX = process.env.PAGES_PATH ? '/final-choice-maid-landing-pages' : '';
 const INFO = JSON.parse(fs.readFileSync(path.join(root, 'build-info.json'), 'utf8'));
 // Names cross-checked against the biodata file names in the marketing folder. Candidates without confirmed consent are read from the private (gitignored) store, never hard-coded here.
 const PENDING = fs.existsSync(path.join(root, 'private/maids.pending.json')) ? JSON.parse(fs.readFileSync(path.join(root, 'private/maids.pending.json'), 'utf8')).maids : [];
-const KNOWN_NAMES = ['Cici Pranita Bako', 'Editha Molina Orosco', 'Maria Evi Estera Br Sembiring', 'Jacquiline Navarro Donato', 'Lusiana', 'Purti Siregar', 'Babylyn Salado Lumayot', ...PENDING.map((m) => m.name)];
+const RELREC = fs.existsSync(path.join(root, 'private/maids.religion.json')) ? JSON.parse(fs.readFileSync(path.join(root, 'private/maids.religion.json'), 'utf8')).religions : null;
+const KNOWN_NAMES =['Cici Pranita Bako', 'Editha Molina Orosco', 'Maria Evi Estera Br Sembiring', 'Jacquiline Navarro Donato', 'Lusiana', 'Purti Siregar', 'Babylyn Salado Lumayot', ...PENDING.map((m) => m.name)];
 const pendingRe = PENDING.length ? new RegExp(PENDING.flatMap((m) => [m.name, m.code, m.photo]).map((x) => x.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|'), 'i') : null;
 const types = { '.html': 'text/html; charset=utf-8', '.webp': 'image/webp', '.png': 'image/png', '.jpg': 'image/jpeg', '.txt': 'text/plain' };
 const server = http.createServer((req, res) => {
@@ -113,6 +114,12 @@ for (const cfg of cfgs) {
       return !!el && el.textContent.trim() === (ix === 0 ? `Agama: ${exp[n][0]}` : `Religion: ${exp[n][1]}`) && c.querySelector('.maid__type').nextElementSibling === el;
     }), relExpect, lang === 'ms' ? 0 : 1);
     log(relOk, `${cfg.id} [${lang}] religion label shown for exactly ${Object.keys(relExpect).length} maid(s), right under the nationality, text matches the recorded value`);
+    // cross-check against the private recorded biodata values (when the private file exists): every shown label must map from the recorded religion; unlabeled maids must be intentionally held back
+    if (RELREC) {
+      const mapL = (r) => { const k = r.trim().toLowerCase(); return ['islam', 'muslim'].includes(k) ? ['Muslim', 'Muslim'] : ['christian', 'christianity', 'roman catholic'].includes(k) ? ['Kristian', 'Christian'] : [r, r]; };
+      const shownOk = Object.entries(relExpect).every(([n, l]) => { const rec = RELREC.find((x) => x.name === n); return rec && JSON.stringify(mapL(rec.recorded)) === JSON.stringify(l); });
+      log(shownOk, `${cfg.id} [${lang}] every displayed religion label matches the recorded biodata value (${Object.keys(relExpect).length} shown, ${INFO.names.length - Object.keys(relExpect).length} held back pending wording/permission)`);
+    }
     const pendingShown = PENDING.filter((m) => INFO.names.includes(m.name));
     if (pendingShown.length) {
       log(pendingShown.every((p) => cards.some((c) => c.name === p.name)), `${cfg.id} [${lang}] ${pendingShown.length} pending candidate(s) present (PREVIEW ONLY, never public)`);

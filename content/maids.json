@@ -6,6 +6,7 @@
    "name": "Cici Pranita Bako",
    "code": "O2-29-CHMNY-IJM163",
    "nationality": "indonesian",
+   "religion": "Christian",
    "years": 3,
    "photo": "cici-pranita-bako",
    "skills": [
@@ -16,12 +17,18 @@
     "verified": true,
     "note": "Consent recorded in the Maid website record (consentRecorded, photoConsent). Name = approved displayName; separate full-name consent is not recorded: confirm."
    },
+   "religionConsent": {
+    "verified": true,
+    "date": "2026-11-24",
+    "note": "Owner confirmed in chat on 2026-11-24 that the maid gave permission to publish her religion. Individual consent records are held privately, not in this repository."
+   },
    "background": "blue"
   },
   {
    "name": "Editha Molina Orosco",
    "code": "M5-42-AHMXY-MA382",
    "nationality": "filipino",
+   "religion": "Roman Catholic",
    "years": 6,
    "photo": "editha-molina-orosco",
    "skills": [
@@ -33,12 +40,18 @@
     "verified": true,
     "note": "Consent recorded in the Maid website record (consentRecorded, photoConsent). Name = approved displayName; separate full-name consent is not recorded: confirm."
    },
+   "religionConsent": {
+    "verified": true,
+    "date": "2026-11-24",
+    "note": "Owner confirmed in chat on 2026-11-24 that the maid gave permission to publish her religion. Individual consent records are held privately, not in this repository."
+   },
    "background": "yellow"
   },
   {
    "name": "Maria Evi Estera Br Sembiring",
    "code": "O2-26-CHTNY-IJM155",
    "nationality": "indonesian",
+   "religion": "Christian",
    "years": 2,
    "photo": "maria-evi-estera-br-sembiring",
    "skills": [
@@ -48,6 +61,11 @@
    "consent": {
     "verified": true,
     "note": "Consent recorded in the Maid website record (consentRecorded, photoConsent). Name = approved displayName; separate full-name consent is not recorded: confirm."
+   },
+   "religionConsent": {
+    "verified": true,
+    "date": "2026-11-24",
+    "note": "Owner confirmed in chat on 2026-11-24 that the maid gave permission to publish her religion. Individual consent records are held privately, not in this repository."
    },
    "background": "blue"
   },
@@ -71,6 +89,7 @@
    "name": "Lusiana",
    "code": "S1-32-HFNY-IJM127",
    "nationality": "indonesian",
+   "religion": "Muslim",
    "years": 2,
    "photo": "lusiana",
    "skills": [
@@ -81,12 +100,18 @@
     "verified": true,
     "note": "Consent recorded in the Maid website record (consentRecorded, photoConsent). Name = approved displayName; separate full-name consent is not recorded: confirm."
    },
+   "religionConsent": {
+    "verified": true,
+    "date": "2026-11-24",
+    "note": "Owner confirmed in chat on 2026-11-24 that the maid gave permission to publish her religion. Individual consent records are held privately, not in this repository."
+   },
    "background": "blue"
   },
   {
    "name": "Purti Siregar",
    "code": "O2-34-EHMNY-IJM158",
    "nationality": "indonesian",
+   "religion": "Muslim",
    "years": 3,
    "photo": "purti-siregar",
    "skills": [
@@ -97,12 +122,18 @@
     "verified": true,
     "note": "Consent recorded in the Maid website record (consentRecorded, photoConsent). Name = approved displayName; separate full-name consent is not recorded: confirm."
    },
+   "religionConsent": {
+    "verified": true,
+    "date": "2026-11-24",
+    "note": "Owner confirmed in chat on 2026-11-24 that the maid gave permission to publish her religion. Individual consent records are held privately, not in this repository."
+   },
    "background": "blue"
   },
   {
    "name": "Babylyn Salado Lumayot",
    "code": "S3-42-CFNY-MA177",
    "nationality": "filipino",
+   "religion": "Roman Catholic",
    "years": 4,
    "photo": "babylyn-salado-lumayot",
    "skills": [
@@ -111,6 +142,11 @@
    "consent": {
     "verified": true,
     "note": "Consent recorded in the Maid website record (consentRecorded, photoConsent). Name = approved displayName; separate full-name consent is not recorded: confirm."
+   },
+   "religionConsent": {
+    "verified": true,
+    "date": "2026-11-24",
+    "note": "Owner confirmed in chat on 2026-11-24 that the maid gave permission to publish her religion. Individual consent records are held privately, not in this repository."
    },
    "background": "yellow"
   }
